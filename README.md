@@ -36,13 +36,33 @@ Every request should contain a valid access token. use the `Pricehubble::authent
 
 ### Performs valuations for the specified real estate properties on the specified valuation dates
 
+https://docs.pricehubble.com/international/valuation/
+
 ```php
 $username = 'Maverick';
 $pricehubble = new Pricehubble();
 $pricehubble->authenticate($username, $password)
 $response = $pricehubble->valuation()->full([
-    
-])
+    'dealType' => 'sale',
+    'valuationInputs' => [
+        'property' => [
+            'location' => [
+                'address' => [
+                    'postCode' => 8037,
+                    'city' => 'Zürich',
+                    'street' => 'Nordstrasse',
+                    'houseNumber' => '391'
+                ],
+            ],
+            'buildingYear' => 1850,
+            'livingArea' => 1500.00,
+            'propertyType' => [
+                'code' => 'apartment'
+            ],
+        ],
+    ],
+    'countryCode' => 'CH',
+]);
 print_r($response);
 ```
 
