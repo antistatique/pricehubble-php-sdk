@@ -89,7 +89,7 @@ final class PricehubbleTest extends TestCase
     }
 
     /**
-     * @covers ::valuation
+     * @covers ::__call
      */
     public function testValuation(): void
     {
@@ -460,24 +460,5 @@ Content-Type: application/json';
       'body' => '',
       'timeout' => 23,
     ], $this->pricehubble->getLastRequest());
-    }
-
-    /**
-     * @covers ::attachRequestPayload
-     */
-    public function testAttachRequestPayload()
-    {
-        self::assertSame([], $this->pricehubble->getLastRequest());
-
-        $curl = curl_init();
-        $curl_setopt_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_setopt');
-        $curl_setopt_mock->expects($this->once())->with(
-      $curl, CURLOPT_POSTFIELDS, '{"name":"john","age":30,"car":null}'
-    );
-
-        $this->callPrivateMethod($this->pricehubble, 'attachRequestPayload', [
-      &$curl, ['name' => 'john', 'age' => 30, 'car' => null],
-    ]);
-        self::assertSame(['body' => '{"name":"john","age":30,"car":null}'], $this->pricehubble->getLastRequest());
     }
 }
