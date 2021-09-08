@@ -39,7 +39,6 @@ Every request should contain a valid access token. use the `Pricehubble::authent
 https://docs.pricehubble.com/international/valuation/
 
 ```php
-$username = 'Maverick';
 $pricehubble = new Pricehubble();
 $pricehubble->authenticate($username, $password)
 $response = $pricehubble->valuation()->full([
