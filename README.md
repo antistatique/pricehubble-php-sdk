@@ -1,0 +1,70 @@
+Pricehubble PHP SDK
+=============
+
+Super-simple, minimum abstraction Pricehubble API v1.x wrapper, in PHP.
+
+I hate complex wrappers. This lets you get from the Pricehubble API docs to the code as directly as possible.
+
+Requires PHP 7.4+. Abstraction is for chimps.
+
+[![Build Status](https://travis-ci.org/antistatique/pricehubble-php-sdk.svg?branch=master)](https://travis-ci.org/antistatique/pricehubble-php-sdk)
+[![Coverage Status](https://coveralls.io/repos/github/antistatique/pricehubble-php-sdk/badge.svg?branch=master)](https://coveralls.io/github/antistatique/pricehubble-php-sdk?branch=master)
+[![Packagist](https://img.shields.io/packagist/dt/antistatique/pricehubble-php-sdk.svg?maxAge=2592000)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
+[![License](https://poser.pugx.org/antistatique/pricehubble-php-sdk/license)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
+
+Getting started
+------------
+
+You can install `pricehubble-php-sdk` using Composer:
+
+```
+composer require antistatique/pricehubble-php-sdk
+```
+
+Examples
+--------
+
+### Basic Example
+
+Start by `use`-ing the class and creating an instance with your API key
+
+```php
+use \Antistatique\Pricehubble\Pricehubble;
+```
+
+Every request should contain a valid access token. use the `Pricehubble::authenticate` method prior any requests.
+
+### Performs valuations for the specified real estate properties on the specified valuation dates
+
+```php
+$username = 'Maverick';
+$pricehubble = new Pricehubble();
+$pricehubble->authenticate($username, $password)
+$response = $pricehubble->valuation()->full([
+    
+])
+print_r($response);
+```
+
+Troubleshooting
+---------------
+
+To get the last error returned by either the HTTP client or by the API, use `getLastError()`:
+
+```php
+echo $pricehubble->getLastError();
+```
+
+For further debugging, you can inspect the headers and body of the response:
+
+```php
+print_r($pricehubble->getLastResponse());
+```
+
+If you suspect you're sending data in the wrong format, you can look at what was sent to Pricehubble by the wrapper:
+
+```php
+print_r($pricehubble->getLastRequest());
+```
+
+If your server's CA root certificates are not up to date you may find that SSL verification fails and you don't get a response. The correction solution for this [is not to disable SSL verification](http://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your-php-config/). The solution is to update your certificates. If you can't do that, there's an option at the top of the class file. Please don't just switch it off without at least attempting to update your certs -- that's lazy and dangerous. You're not a lazy, dangerous developer are you?

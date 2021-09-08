@@ -1,0 +1,47 @@
+{
+  "name": "antistatique/pricehubble-php-sdk",
+  "description": "Super-simple, minimum abstraction Pricehubble API v1.x wrapper, in PHP",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "phpunit/php-code-coverage": "^8",
+    "symfony/dotenv": "^4.3",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpmd/phpmd": "^2.6",
+    "sebastian/phpcpd": "^6.0",
+    "sensiolabs/security-checker": "^5.0",
+    "php-coveralls/php-coveralls": "^2.1",
+    "php-mock/php-mock-phpunit": "^2.6",
+    "vimeo/psalm": "^4.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "Antistatique\\Pricehubble\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Antistatique\\Pricehubble\\Tests\\": "tests/"
+    }
+  },
+  "homepage": "https://github.com/antistatique/pricehubble-php-sdk",
+  "authors": [
+    {
+      "name": "Antistatique SA",
+      "email": "info@antistatique.net",
+      "homepage": "https://www.antistatique.net",
+      "role": "Sponsor"
+    },
+    {
+      "name": "Kevin Wenger",
+      "email": "contact@kevin-wenger.ch",
+      "homepage": "http://kevin-wenger.ch",
+      "role": "Author & Maintainer"
+    }
+  ]
+}
