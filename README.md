@@ -8,7 +8,7 @@ I hate complex wrappers. This lets you get from the Pricehubble API docs to the 
 Requires PHP 7.4+. Abstraction is for chimps.
 
 [![Build](https://github.com/antistatique/pricehubble-php-sdk/actions/workflows/cs-tests.yml/badge.svg)](https://github.com/antistatique/pricehubble-php-sdk/actions/workflows/cs-tests.yml)
-[![Coverage Status](https://coveralls.io/repos/github/antistatique/pricehubble-php-sdk/badge.svg?branch=master)](https://coveralls.io/github/antistatique/pricehubble-php-sdk?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/antistatique/pricehubble-php-sdk/badge.svg)](https://coveralls.io/github/antistatique/pricehubble-php-sdk)
 [![Packagist](https://img.shields.io/packagist/dt/antistatique/pricehubble-php-sdk.svg?maxAge=2592000)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 [![License](https://poser.pugx.org/antistatique/pricehubble-php-sdk/license)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 
