@@ -111,8 +111,8 @@ final class PricehubbleTest extends TestCase
         self::assertEmpty($response['body']);
 
         $response = $this->callPrivateMethod($this->pricehubble, 'setResponseState', [
-      $response, $response_content, null,
-    ]);
+            $response, $response_content, null,
+        ]);
 
         self::assertArrayHasKey('httpHeaders', $response);
         self::assertArrayHasKey('body', $response);

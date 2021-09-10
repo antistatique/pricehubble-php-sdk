@@ -44,19 +44,21 @@ $pricehubble->authenticate($username, $password)
 $response = $pricehubble->valuation()->full([
     'dealType' => 'sale',
     'valuationInputs' => [
-        'property' => [
-            'location' => [
-                'address' => [
-                    'postCode' => 8037,
-                    'city' => 'Zürich',
-                    'street' => 'Nordstrasse',
-                    'houseNumber' => '391'
+        [
+            'property' => [
+                'location' => [
+                    'address' => [
+                        'postCode' => 8037,
+                        'city' => 'Zürich',
+                        'street' => 'Nordstrasse',
+                        'houseNumber' => '391'
+                    ],
                 ],
-            ],
-            'buildingYear' => 1850,
-            'livingArea' => 1500.00,
-            'propertyType' => [
-                'code' => 'apartment'
+                'buildingYear' => 1850,
+                'livingArea' => 1500.00,
+                'propertyType' => [
+                    'code' => 'apartment'
+                ],
             ],
         ],
     ],
