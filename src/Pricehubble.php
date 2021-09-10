@@ -12,7 +12,8 @@ use Antistatique\Pricehubble\Resource\ResourceInterface;
  *
  * @see self::authenticate to obtain one.
  *
- * @method \Antistatique\Pricehubble\Resource\Valuation valuation()
+ * @method \Antistatique\Pricehubble\Resource\Valuation        valuation()
+ * @method \Antistatique\Pricehubble\Resource\PointsOfInterest pointsOfInterest()
  */
 class Pricehubble
 {

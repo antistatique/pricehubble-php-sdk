@@ -34,9 +34,13 @@ use \Antistatique\Pricehubble\Pricehubble;
 
 Every request should contain a valid access token. use the `Pricehubble::authenticate` method prior any requests.
 
-### Performs valuations for the specified real estate properties on the specified valuation dates
+### Valuation
 
-https://docs.pricehubble.com/international/valuation/
+Performs valuations for the specified real estate properties on the specified valuation dates. The endpoint can be used to do a valuation of a single property, to create time series or to perform bulk valuations.
+
+The number of valuations per call may not exceed 50, i.e. you can perform valuations for 1 property on 50 dates or for 50 properties on 1 date, but not for 50 properties on 50 dates.
+
+👉 https://docs.pricehubble.com/international/valuation/
 
 ```php
 $pricehubble = new Pricehubble();
@@ -62,6 +66,36 @@ $response = $pricehubble->valuation()->full([
             ],
         ],
     ],
+    'countryCode' => 'CH',
+]);
+print_r($response);
+```
+
+### Points of Interest
+
+Returns points of interests such as schools, shops, etc. that match the specified search criteria.
+
+👉 https://docs.pricehubble.com/international/pois/
+
+```php
+$pricehubble = new Pricehubble();
+$pricehubble->authenticate($username, $password)
+$response = $pricehubble->pointsOfInterest()->gather([
+    'coordinates' => [
+        'latitude' => 47.3968601,
+        'longitude' => 8.5153549,
+    ],
+    'radius' => 1000,
+    'category' => [
+        'education',
+        'leisure',
+    ],
+    'subcategory' => [
+        'kindergarten',
+        'playground',
+    ],
+    'offset' => 0,
+    'limit' => 10,
     'countryCode' => 'CH',
 ]);
 print_r($response);
