@@ -1,0 +1,23 @@
+{
+  "totalItems": 1,
+  "items": [
+    {
+      "name": "Waidfussweg",
+      "category": "education",
+      "subcategory": "kindergarten",
+      "location": {
+        "coordinates": {
+          "latitude": 47.39780,
+          "longitude": 8.51751
+        },
+        "address": {
+          "postCode": "8037",
+          "city": "Zürich",
+          "street": "Waidfussweg",
+          "houseNumber": "61"
+        }
+      },
+      "distance": 193
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "valuations": [
+    [
+      {
+        "salePrice": 374000,
+        "salePriceRange": {
+          "lower": 329000,
+          "upper": 418000
+        },
+        "confidence": "medium",
+        "currency": "CHF",
+        "coordinates": {
+          "latitude": 47.3968677,
+          "longitude": 8.515364
+        }
+      }
+    ]
+  ]
+}

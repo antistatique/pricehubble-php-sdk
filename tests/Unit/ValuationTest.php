@@ -18,6 +18,8 @@ class ValuationTest extends TestCase
      */
     public function testFullReturnsExpected(): void
     {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/valuation-full.json'), true, 512, JSON_THROW_ON_ERROR);
+
         $fullParams = [
           'dealType' => 'sale',
           'valuationInputs' => [
@@ -56,7 +58,7 @@ class ValuationTest extends TestCase
         $pricehubble_mock->expects($this->once())
             ->method('makeRequest')
             ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value', $fullParams)
-            ->willReturn(json_decode('{"valuations":[[{"salePrice":374000,"salePriceRange":{"lower":329000,"upper":418000},"confidence":"medium","coordinates":{"latitude":47.3968601,"longitude":8.5153549},"currency":"CHF","scores":{"location":0.551}},{"salePrice":374000,"salePriceRange":{"lower":329000,"upper":418000},"confidence":"medium","currency":"CHF","scores":{"location":0.551}}]]}', true, 512, JSON_THROW_ON_ERROR));
+            ->willReturn($response);
 
         $pricehubble_mock->valuation()->full($fullParams);
     }
@@ -66,6 +68,8 @@ class ValuationTest extends TestCase
      */
     public function testLightReturnsExpected(): void
     {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/valuation-light.json'), true, 512, JSON_THROW_ON_ERROR);
+
         $lightParams = [
             'dealType' => 'sale',
             'valuationInputs' => [
@@ -97,7 +101,7 @@ class ValuationTest extends TestCase
         $pricehubble_mock->expects($this->once())
             ->method('makeRequest')
             ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value_light', $lightParams)
-            ->willReturn(json_decode('{"valuations":[[{"salePrice":374000,"salePriceRange":{"lower":329000,"upper":418000},"confidence":"medium","coordinates":{"latitude":47.3968601,"longitude":8.5153549},"currency":"CHF","scores":{"location":0.551}},{"salePrice":374000,"salePriceRange":{"lower":329000,"upper":418000},"confidence":"medium","currency":"CHF","scores":{"location":0.551}}]]}', true, 512, JSON_THROW_ON_ERROR));
+            ->willReturn($response);
 
         $pricehubble_mock->valuation()->light($lightParams);
     }

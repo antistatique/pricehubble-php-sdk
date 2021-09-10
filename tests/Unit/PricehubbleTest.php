@@ -102,7 +102,7 @@ final class PricehubbleTest extends TestCase
      */
     public function testSetResponseState()
     {
-        $response = json_decode(file_get_contents(__DIR__.'/../responses/partials/login.json'), true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/partials/complete.json'), true, 512, JSON_THROW_ON_ERROR);
         $response_content = file_get_contents(__DIR__.'/../responses/partials/body.txt');
 
         self::assertArrayHasKey('httpHeaders', $response);
