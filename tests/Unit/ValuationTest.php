@@ -72,23 +72,19 @@ class ValuationTest extends TestCase
 
         $lightParams = [
             'dealType' => 'sale',
-            'valuationInputs' => [
-                [
-                    'property' => [
-                        'location' => [
-                            'address' => [
-                                'postCode' => 8037,
-                                'city' => 'Zürich',
-                                'street' => 'Nordstrasse',
-                                'houseNumber' => '391',
-                            ],
-                        ],
-                        'buildingYear' => 1850,
-                        'livingArea' => 130,
-                        'propertyType' => [
-                            'code' => 'apartment',
-                        ],
+            'property' => [
+                'location' => [
+                    'address' => [
+                        'postCode' => 8037,
+                        'city' => 'Zürich',
+                        'street' => 'Nordstrasse',
+                        'houseNumber' => '391',
                     ],
+                ],
+                'buildingYear' => 1850,
+                'livingArea' => 130,
+                'propertyType' => [
+                    'code' => 'apartment',
                 ],
             ],
             'countryCode' => 'CH',

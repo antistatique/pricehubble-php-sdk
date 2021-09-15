@@ -71,6 +71,39 @@ $response = $pricehubble->valuation()->full([
 print_r($response);
 ```
 
+### Valuation Light
+
+Performs a simple valuation of the specified property.
+
+If you would like to perform valuations for multiple properties (in a single call), create time series, or achieve better valuations by taking more parameters into account, consider using the full-fledged Valuation endpoint.
+
+👉 https://docs.pricehubble.com/international/valuation_light/
+
+```php
+$pricehubble = new Pricehubble();
+$pricehubble->authenticate($username, $password)
+$response = $pricehubble->valuation()->full([
+    'dealType' => 'sale',
+    'property' => [
+        'location' => [
+            'address' => [
+                'postCode' => 8037,
+                'city' => 'Zürich',
+                'street' => 'Nordstrasse',
+                'houseNumber' => '391'
+            ],
+        ],
+        'buildingYear' => 1850,
+        'livingArea' => 1500.00,
+        'propertyType' => [
+            'code' => 'apartment'
+        ],
+    ],
+    'countryCode' => 'CH',
+]);
+print_r($response);
+```
+
 ### Points of Interest
 
 Returns points of interests such as schools, shops, etc. that match the specified search criteria.
