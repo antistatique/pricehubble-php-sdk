@@ -91,7 +91,7 @@ class Pricehubble
      */
     public function __construct()
     {
-        if (!\function_exists('curl_init') || !\function_exists('curl_setopt')) {
+        if (!function_exists('curl_init') || !function_exists('curl_setopt')) {
             throw new \RuntimeException("cURL support is required, but can't be found.");
         }
 
@@ -132,9 +132,9 @@ class Pricehubble
     public function authenticate(string $username, string $password, int $timeout = self::TIMEOUT): void
     {
         $response = $this->makeRequest('post', 'https://api.pricehubble.com/auth/login/credentials', [
-      'username' => $username,
-      'password' => $password,
-    ], $timeout);
+            'username' => $username,
+            'password' => $password,
+        ], $timeout);
 
         if (isset($response['access_token'])) {
             $this->setApiToken($response['access_token']);
@@ -189,6 +189,16 @@ class Pricehubble
     public function setApiToken(string $token): void
     {
         $this->apiAuthToken = $token;
+    }
+
+    /**
+     * Get the API token for restricted API calls.
+     *
+     * @return string|null $token The Pricehubble token authorized for restricted API calls
+     */
+    public function getApiToken(): ?string
+    {
+        return $this->apiAuthToken;
     }
 
     /**
@@ -369,9 +379,9 @@ class Pricehubble
         $response = $this->prepareStateForRequest($http_verb, $url, $timeout);
 
         $httpHeader = [
-      'Accept: application/json',
-      'Content-Type: application/json',
-    ];
+            'Accept: application/json',
+            'Content-Type: application/json',
+        ];
 
         if (isset($args['language'])) {
             $httpHeader[] = 'Accept-Language: '.$args['language'];
@@ -394,51 +404,51 @@ class Pricehubble
         curl_setopt($curl, \CURLINFO_HEADER_OUT, true);
 
         // Set credentials for non GET verb.
-        if ($this->apiAuthToken && \in_array($http_verb, [
-      'post',
-      'delete',
-      'patch',
-      'put',
-    ], true)) {
+        if ($this->getApiToken() && \in_array($http_verb, [
+                'post',
+                'delete',
+                'patch',
+                'put',
+            ], true)) {
             $url .= '?'.http_build_query(['access_token' => $this->apiAuthToken], '', '&');
             curl_setopt($curl, \CURLOPT_URL, $url);
         }
 
         switch ($http_verb) {
-      case 'post':
-        curl_setopt($curl, \CURLOPT_POST, true);
-        $this->attachRequestPayload($curl, $args);
+            case 'post':
+                curl_setopt($curl, \CURLOPT_POST, true);
+                $this->attachRequestPayload($curl, $args);
 
-        break;
+                break;
 
-      case 'get':
-        // Set credentials for GET verb.
-        if ($this->apiAuthToken) {
-            $args += ['access_token' => $this->apiAuthToken];
+            case 'get':
+                // Set credentials for GET verb.
+                if ($this->getApiToken()) {
+                    $args += ['access_token' => $this->getApiToken()];
+                }
+
+                $query = http_build_query($args, '', '&');
+                curl_setopt($curl, \CURLOPT_URL, $url.'?'.$query);
+
+                break;
+
+            case 'delete':
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+                break;
+
+            case 'patch':
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PATCH');
+                $this->attachRequestPayload($curl, $args);
+
+                break;
+
+            case 'put':
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
+                $this->attachRequestPayload($curl, $args);
+
+                break;
         }
-
-        $query = http_build_query($args, '', '&');
-        curl_setopt($curl, \CURLOPT_URL, $url.'?'.$query);
-
-        break;
-
-      case 'delete':
-        curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'DELETE');
-
-        break;
-
-      case 'patch':
-        curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PATCH');
-        $this->attachRequestPayload($curl, $args);
-
-        break;
-
-      case 'put':
-        curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
-        $this->attachRequestPayload($curl, $args);
-
-        break;
-    }
 
         /** @var string $response_content */
         $response_content = curl_exec($curl);
@@ -478,19 +488,19 @@ class Pricehubble
         $this->requestSuccessful = false;
 
         $this->lastResponse = [
-      // Array of details from curl_getinfo().
-      'headers' => null,
-      // Array of HTTP headers.
-      'httpHeaders' => null,
-      // Content of the response.
-      'body' => null,
-    ];
+            // Array of details from curl_getinfo().
+            'headers' => null,
+            // Array of HTTP headers.
+            'httpHeaders' => null,
+            // Content of the response.
+            'body' => null,
+        ];
 
         $this->lastRequest = $parts + [
-      'method' => $http_verb,
-      'body' => '',
-      'timeout' => $timeout,
-    ];
+                'method' => $http_verb,
+                'body' => '',
+                'timeout' => $timeout,
+            ];
 
         return $this->lastResponse;
     }

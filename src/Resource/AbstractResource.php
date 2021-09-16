@@ -24,7 +24,21 @@ abstract class AbstractResource implements ResourceInterface
      */
     public function __construct(Pricehubble $pricehubble)
     {
+        $this->setPricehubble($pricehubble);
+    }
+
+    /**
+     * Set the API provider.
+     *
+     * @param \Antistatique\Pricehubble\Pricehubble $pricehubble the Pricehubble base API instance
+     *
+     * @return $this
+     */
+    public function setPricehubble(Pricehubble $pricehubble): self
+    {
         $this->pricehubble = $pricehubble;
+
+        return $this;
     }
 
     /**

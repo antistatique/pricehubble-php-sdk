@@ -2,7 +2,7 @@
 
 Please read the below before posting an issue. Thank you!
 
-- If your question is about the TrustedShops API itself, please check out the [TrustedShops Guides](https://api.trustedshops.com). This project doesn't handle any of that logic - we're just helping you form the requests.
+- If your question is about the Pricehubble API itself, please check out the [Pricehubble Doc](https://docs.pricehubble.com/). This project doesn't handle any of that logic - we're just helping you form the requests.
 
 If, however, you think you've found a bug, or would like to discuss a change or improvement, feel free to raise an issue and we'll figure it out between us.
 
@@ -25,13 +25,13 @@ You need to run composer before using [FriendsOfPHP/PHP-CS-Fixer](https://github
 Check & Fix Symfony 4 coding standards:
 
 ```bash
-./vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --using-cache=no
+./vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
 ```
 
 Automatically fix coding standards
 
 ```bash
-./vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --using-cache=no
+./vendor/bin/php-cs-fixer fix -v --using-cache=no
 ```
 
 ### Improve global code quality using PHPCPD (Code duplication)

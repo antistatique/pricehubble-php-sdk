@@ -1,6 +1,6 @@
 <?php
 
-namespace Antistatique\Pricehubble\Tests\Unit;
+namespace Antistatique\Pricehubble\Tests\Unit\Resource;
 
 use Antistatique\Pricehubble\Pricehubble;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class PointsOfInterestTest extends TestCase
      */
     public function testGatherReturnsExpected(): void
     {
-        $response = json_decode(file_get_contents(__DIR__.'/../responses/pois.json'), true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode(file_get_contents(__DIR__.'/../../responses/pois.json'), true, 512, JSON_THROW_ON_ERROR);
 
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
             ->onlyMethods(['makeRequest'])

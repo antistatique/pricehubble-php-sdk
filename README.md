@@ -33,6 +33,7 @@ use \Antistatique\Pricehubble\Pricehubble;
 ```
 
 Every request should contain a valid access token. use the `Pricehubble::authenticate` method prior any requests.
+All operational requests require an authentication to be present and unexpired.
 
 ### Valuation
 
