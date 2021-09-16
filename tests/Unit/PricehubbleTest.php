@@ -244,73 +244,6 @@ Content-Type: application/json';
     }
 
     /**
-     * @covers ::makeRequest
-     */
-    public function testMakeRequestPost()
-    {
-        $headers_json = json_decode((file_get_contents(__DIR__.'/../responses/partials/headers.json')), true);
-        $body_json = file_get_contents(__DIR__.'/../responses/partials/body.json');
-        $body_txt = file_get_contents(__DIR__.'/../responses/partials/body.txt');
-
-        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-            ->onlyMethods(['prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
-            ->getMock();
-
-        $pricehubble_mock->expects($this->once())
-            ->method('prepareStateForRequest')
-            ->with('post', 'https://api.pricehubble.com/auth/login/credentials', 10)
-            ->willReturn([
-                'headers' => null,
-                'httpHeaders' => null,
-                'body' => null,
-            ]);
-
-        $response = [
-            'body' => $body_json,
-            'headers' => $headers_json,
-            'httpHeaders' => [
-                'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
-                'Server' => 'Apache',
-                'Access-Control-Allow-Origin' => '*',
-                'Content-Encoding' => 'gzip',
-                'Connection' => 'close',
-                'Transfer-Encoding' => 'chunked',
-                'Content-Type' => 'application/json',
-            ],
-        ];
-        $pricehubble_mock->expects($this->once())
-            ->method('setResponseState')
-            ->with($this->isType('array'), $this->isType('string'), $this->anything())
-            ->willReturn($response);
-
-        $pricehubble_mock->expects($this->once())
-            ->method('formatResponse')
-            ->with($this->isType('array'))
-            ->willReturn(json_decode($response['body'], true));
-
-        $pricehubble_mock->expects($this->once())
-            ->method('determineSuccess')
-            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
-            ->willReturn(true);
-
-        $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
-        $curl_exec_mock->expects($this->any())->willReturn($body_txt);
-
-        $curl_getinfo_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_getinfo');
-        $curl_getinfo_mock->expects($this->any())->willReturn($response['headers']);
-
-        $result = $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
-            'post', 'https://api.pricehubble.com/auth/login/credentials',
-            ['foo' => 'bar'],
-            10,
-        ]);
-        self::assertSame([
-            'access_token' => '74126eab0a9048d993bda4b1b55ae074',
-            'expires_in' => 43200,
-        ], $result);
-    }
-
-    /**
      * @covers ::findHttpStatus
      *
      * @dataProvider providerHttpStatus
@@ -530,5 +463,132 @@ Content-Type: application/json';
             'body' => '',
             'timeout' => 23,
         ], $this->pricehubble->getLastRequest());
+    }
+
+    /**
+     * @covers ::makeRequest
+     */
+    public function testMakeRequestMalformedResponse(): void
+    {
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+            ->onlyMethods(['prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+            ->getMock();
+
+        $pricehubble_mock->expects($this->once())
+            ->method('prepareStateForRequest')
+            ->with('verb', 'https://example.org', 10);
+
+        $pricehubble_mock->expects($this->once())
+            ->method('setResponseState')
+            ->with($this->isType('array'), $this->isType('string'), $this->anything());
+
+        $pricehubble_mock->expects($this->once())
+            ->method('formatResponse')
+            ->with($this->isType('array'));
+
+        $pricehubble_mock->expects($this->never())
+            ->method('determineSuccess');
+
+        $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
+        $curl_exec_mock->expects($this->once())->willReturn('');
+
+        $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
+            'verb', 'https://example.org',
+        ]);
+    }
+
+    /**
+     * @covers ::makeRequest
+     */
+    public function testMakeRequestGet(): void
+    {
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+            ->onlyMethods(['getApiToken', 'prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+            ->getMock();
+
+        $pricehubble_mock->expects($this->once())
+            ->method('prepareStateForRequest')
+            ->with('get', 'https://example.org', 10);
+
+        $pricehubble_mock->expects($this->exactly(3))
+            ->method('getApiToken')
+            ->willReturn('api-token');
+
+        $pricehubble_mock->expects($this->once())
+            ->method('setResponseState')
+            ->with($this->isType('array'), $this->isType('string'), $this->anything())
+        ;
+
+        $pricehubble_mock->expects($this->once())
+            ->method('formatResponse')
+            ->with($this->isType('array'))
+            ->willReturn(['foo' => 'bar']);
+
+        $pricehubble_mock->expects($this->once())
+            ->method('determineSuccess')
+            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+            ->willReturn(true);
+
+        $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
+        $curl_exec_mock->expects($this->once())->willReturn('body');
+
+        $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
+            'get', 'https://example.org',
+        ]);
+    }
+
+    /**
+     * @covers ::makeRequest
+     *
+     * @dataProvider providerHttpVerbs
+     */
+    public function testMakeRequestByVerbs(string $verb): void
+    {
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+            ->onlyMethods(['getApiToken', 'prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+            ->getMock();
+
+        $pricehubble_mock->expects($this->once())
+            ->method('prepareStateForRequest')
+            ->with($verb, 'https://example.org', 10);
+
+        $pricehubble_mock->expects($this->exactly(1))
+            ->method('getApiToken')
+            ->willReturn('api-token');
+
+        $pricehubble_mock->expects($this->once())
+            ->method('setResponseState')
+            ->with($this->isType('array'), $this->isType('string'), $this->anything())
+        ;
+
+        $pricehubble_mock->expects($this->once())
+            ->method('formatResponse')
+            ->with($this->isType('array'))
+            ->willReturn(['foo' => 'bar']);
+
+        $pricehubble_mock->expects($this->once())
+            ->method('determineSuccess')
+            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+            ->willReturn(true);
+
+        $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
+        $curl_exec_mock->expects($this->once())->willReturn('body');
+
+        $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
+            $verb, 'https://example.org',
+        ]);
+    }
+
+    /**
+     * Provider of :testMakeRequestByVerbs.
+     *
+     * @return iterable Variation of HTTP Verbs
+     */
+    public function providerHttpVerbs(): iterable
+    {
+        yield ['post'];
+        yield ['delete'];
+        yield ['patch'];
+        yield ['put'];
     }
 }

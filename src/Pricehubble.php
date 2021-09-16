@@ -403,7 +403,7 @@ class Pricehubble
         curl_setopt($curl, \CURLINFO_HEADER_OUT, true);
 
         // Set credentials for non GET verb.
-        if ($this->apiAuthToken && \in_array($http_verb, [
+        if ($this->getApiToken() && \in_array($http_verb, [
                 'post',
                 'delete',
                 'patch',
@@ -422,8 +422,8 @@ class Pricehubble
 
             case 'get':
                 // Set credentials for GET verb.
-                if ($this->apiAuthToken) {
-                    $args += ['access_token' => $this->apiAuthToken];
+                if ($this->getApiToken()) {
+                    $args += ['access_token' => $this->getApiToken()];
                 }
 
                 $query = http_build_query($args, '', '&');
