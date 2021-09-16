@@ -120,6 +120,54 @@ final class PricehubbleTest extends TestCase
     }
 
     /**
+     * @covers ::authenticate
+     */
+    public function testAuthenticateOnSuccessSetApiToken(): void
+    {
+        $mock = $this->getMockBuilder(Pricehubble::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['makeRequest', 'setApiToken'])
+            ->getMockForAbstractClass();
+
+        $mock->expects(self::once())
+            ->method('makeRequest')
+            ->with('post', 'https://api.pricehubble.com/auth/login/credentials', [
+                'username' => 'user',
+                'password' => 'password',
+            ], 10)
+            ->willReturn(['access_token' => 'token']);
+        $mock->expects(self::once())
+            ->method('setApiToken')
+            ->with('token');
+
+        $mock->authenticate('user', 'password');
+    }
+
+    /**
+     * @covers ::authenticate
+     */
+    public function testAuthenticateOnError(): void
+    {
+        $mock = $this->getMockBuilder(Pricehubble::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['makeRequest', 'setApiToken'])
+            ->getMockForAbstractClass();
+
+        $mock->expects(self::once())
+            ->method('makeRequest')
+            ->with('post', 'https://api.pricehubble.com/auth/login/credentials', [
+                'username' => 'user',
+                'password' => 'password',
+            ], 10)
+            ->willReturn(false);
+        $mock->expects(self::never())
+            ->method('setApiToken')
+            ->with('token');
+
+        $mock->authenticate('user', 'password');
+    }
+
+    /**
      * @covers ::setResponseState
      */
     public function testSetResponseState()
