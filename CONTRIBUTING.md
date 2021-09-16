@@ -25,13 +25,13 @@ You need to run composer before using [FriendsOfPHP/PHP-CS-Fixer](https://github
 Check & Fix Symfony 4 coding standards:
 
 ```bash
-./vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --using-cache=no
+./vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
 ```
 
 Automatically fix coding standards
 
 ```bash
-./vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --using-cache=no
+./vendor/bin/php-cs-fixer fix -v --using-cache=no
 ```
 
 ### Improve global code quality using PHPCPD (Code duplication)

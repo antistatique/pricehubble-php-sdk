@@ -8,8 +8,6 @@ use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the block plugin collection.
- *
  * @coversDefaultClass \Antistatique\Pricehubble\Pricehubble
  *
  * @group pricehubble
