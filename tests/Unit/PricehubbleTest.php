@@ -5,13 +5,12 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
 use Antistatique\Pricehubble\Tests\Traits\TestPrivateTrait;
+use BadMethodCallException;
 use Exception;
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the block plugin collection.
- *
  * @coversDefaultClass \Antistatique\Pricehubble\Pricehubble
  *
  * @group pricehubble
@@ -42,6 +41,7 @@ final class PricehubbleTest extends TestCase
     }
 
     /**
+     * @covers ::__construct
      * @covers ::success
      * @covers ::getLastError
      * @covers ::getLastResponse
@@ -52,13 +52,14 @@ final class PricehubbleTest extends TestCase
      */
     public function testInstantiation(): void
     {
-        self::assertFalse($this->pricehubble->success());
-        self::assertFalse($this->pricehubble->getLastError());
+        $pricehubble = new Pricehubble();
+        self::assertFalse($pricehubble->success());
+        self::assertFalse($pricehubble->getLastError());
         self::assertSame([
-      'headers' => null,
-      'body' => null,
-    ], $this->pricehubble->getLastResponse());
-        self::assertSame([], $this->pricehubble->getLastRequest());
+          'headers' => null,
+          'body' => null,
+        ], $pricehubble->getLastResponse());
+        self::assertSame([], $pricehubble->getLastRequest());
     }
 
     /**
@@ -91,10 +92,31 @@ final class PricehubbleTest extends TestCase
     /**
      * @covers ::__call
      */
-    public function testValuation(): void
+    public function testMagicCallReturnsExpected(): void
     {
         $valuation = $this->pricehubble->valuation();
         self::assertInstanceOf(AbstractResource::class, $valuation);
+    }
+
+    /**
+     * @covers ::__call
+     */
+    public function testMagicCallReturnsException(): void
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Undefined method foo');
+        $this->pricehubble->foo();
+    }
+
+    /**
+     * @covers ::setApiToken
+     * @covers ::getApiToken
+     */
+    public function testSetApiToken(): void
+    {
+        self::assertEmpty($this->pricehubble->getApiToken());
+        $this->pricehubble->setApiToken('api-token');
+        self::assertEquals('api-token', $this->pricehubble->getApiToken());
     }
 
     /**

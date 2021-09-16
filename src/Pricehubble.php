@@ -90,7 +90,7 @@ class Pricehubble
      */
     public function __construct()
     {
-        if (!\function_exists('curl_init') || !\function_exists('curl_setopt')) {
+        if (!function_exists('curl_init') || !function_exists('curl_setopt')) {
             throw new \RuntimeException("cURL support is required, but can't be found.");
         }
 
@@ -188,6 +188,16 @@ class Pricehubble
     public function setApiToken(string $token): void
     {
         $this->apiAuthToken = $token;
+    }
+
+    /**
+     * Get the API token for restricted API calls.
+     *
+     * @return string|null $token The Pricehubble token authorized for restricted API calls
+     */
+    public function getApiToken(): ?string
+    {
+        return $this->apiAuthToken;
     }
 
     /**
