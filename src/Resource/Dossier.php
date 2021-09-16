@@ -22,14 +22,14 @@ final class Dossier extends AbstractResource
      * Creates a new dossier. The dossier can then be shared using the Dossier Sharing endpoint.
      *
      * @param array $args
-     *                       Assoc array of arguments (usually your data).
+     *                       Assoc array of arguments (usually your data)
      * @param int   $timeout
-     *                       Timeout limit for request in seconds.
+     *                       Timeout limit for request in seconds
      *
      * @throws \Exception
      *
      * @return array|bool
-     *                    A decoded array of result or a boolean on unattended response.
+     *                    A decoded array of result or a boolean on unattended response
      */
     public function create(array $args = [], int $timeout = Pricehubble::TIMEOUT)
     {

@@ -84,7 +84,7 @@ class DossierTest extends TestCase
                 ],
             ],
             'logo' => 'b7219677-f4d5-4e99-9d7f-7cf1dee68900.png',
-            'countryCode' => 'CH'
+            'countryCode' => 'CH',
         ]);
     }
 }
