@@ -56,8 +56,8 @@ final class PricehubbleTest extends TestCase
         self::assertFalse($pricehubble->success());
         self::assertFalse($pricehubble->getLastError());
         self::assertSame([
-          'headers' => null,
-          'body' => null,
+            'headers' => null,
+            'body' => null,
         ], $pricehubble->getLastResponse());
         self::assertSame([], $pricehubble->getLastRequest());
     }
@@ -74,9 +74,9 @@ final class PricehubbleTest extends TestCase
         self::assertIsArray($result);
         self::assertIsArray($this->pricehubble->getLastResponse());
         self::assertSame([
-      'access_token' => '74126eab0a9048d993bda4b1b55ae074',
-      'expires_in' => 43200,
-    ], $result);
+            'access_token' => '74126eab0a9048d993bda4b1b55ae074',
+            'expires_in' => 43200,
+        ], $result);
     }
 
     /**
@@ -139,14 +139,14 @@ final class PricehubbleTest extends TestCase
         self::assertArrayHasKey('httpHeaders', $response);
         self::assertArrayHasKey('body', $response);
         self::assertSame([
-      'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
-      'Server' => 'Apache',
-      'Access-Control-Allow-Origin' => '*',
-      'Content-Encoding' => 'gzip',
-      'Connection' => 'close',
-      'Transfer-Encoding' => 'chunked',
-      'Content-Type' => 'application/json',
-    ], $response['httpHeaders']);
+            'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
+            'Server' => 'Apache',
+            'Access-Control-Allow-Origin' => '*',
+            'Content-Encoding' => 'gzip',
+            'Connection' => 'close',
+            'Transfer-Encoding' => 'chunked',
+            'Content-Type' => 'application/json',
+        ], $response['httpHeaders']);
         self::assertSame('
 {"access_token": "74126eab0a9048d993bda4b1b55ae074", "expires_in": 43200}
 ', $response['body']);
@@ -159,13 +159,13 @@ final class PricehubbleTest extends TestCase
     {
         $curl_error_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_error');
         $curl_error_mock->expects($this->once())
-      ->willReturn('Something went wrong.');
+            ->willReturn('Something went wrong.');
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Something went wrong.');
         $this->callPrivateMethod($this->pricehubble, 'setResponseState', [
-      [], false, null,
-    ]);
+            [], false, null,
+        ]);
     }
 
     /**
@@ -185,14 +185,14 @@ Content-Type: application/json';
         $headers = $this->callPrivateMethod($this->pricehubble, 'getHeadersAsArray', [$headers_string]);
 
         self::assertSame([
-      'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
-      'Server' => 'Apache',
-      'Access-Control-Allow-Origin' => '*',
-      'Content-Encoding' => 'gzip',
-      'Connection' => 'close',
-      'Transfer-Encoding' => 'chunked',
-      'Content-Type' => 'application/json',
-    ], $headers);
+            'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
+            'Server' => 'Apache',
+            'Access-Control-Allow-Origin' => '*',
+            'Content-Encoding' => 'gzip',
+            'Connection' => 'close',
+            'Transfer-Encoding' => 'chunked',
+            'Content-Type' => 'application/json',
+        ], $headers);
     }
 
     /**
@@ -205,45 +205,45 @@ Content-Type: application/json';
         $body_txt = file_get_contents(__DIR__.'/../responses/partials/body.txt');
 
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-      ->onlyMethods(['prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
-      ->getMock();
+            ->onlyMethods(['prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+            ->getMock();
 
         $pricehubble_mock->expects($this->once())
-      ->method('prepareStateForRequest')
-      ->with('post', 'https://api.pricehubble.com/auth/login/credentials', 10)
-      ->willReturn([
-        'headers' => null,
-        'httpHeaders' => null,
-        'body' => null,
-      ]);
+            ->method('prepareStateForRequest')
+            ->with('post', 'https://api.pricehubble.com/auth/login/credentials', 10)
+            ->willReturn([
+                'headers' => null,
+                'httpHeaders' => null,
+                'body' => null,
+            ]);
 
         $response = [
-      'body' => $body_json,
-      'headers' => $headers_json,
-      'httpHeaders' => [
-        'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
-        'Server' => 'Apache',
-        'Access-Control-Allow-Origin' => '*',
-        'Content-Encoding' => 'gzip',
-        'Connection' => 'close',
-        'Transfer-Encoding' => 'chunked',
-        'Content-Type' => 'application/json',
-      ],
-    ];
+            'body' => $body_json,
+            'headers' => $headers_json,
+            'httpHeaders' => [
+                'Date' => 'Mon, 30 Sep 2019 14:09:23 GMT',
+                'Server' => 'Apache',
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Encoding' => 'gzip',
+                'Connection' => 'close',
+                'Transfer-Encoding' => 'chunked',
+                'Content-Type' => 'application/json',
+            ],
+        ];
         $pricehubble_mock->expects($this->once())
-      ->method('setResponseState')
-      ->with($this->isType('array'), $this->isType('string'), $this->anything())
-      ->willReturn($response);
+            ->method('setResponseState')
+            ->with($this->isType('array'), $this->isType('string'), $this->anything())
+            ->willReturn($response);
 
         $pricehubble_mock->expects($this->once())
-      ->method('formatResponse')
-      ->with($this->isType('array'))
-      ->willReturn(json_decode($response['body'], true));
+            ->method('formatResponse')
+            ->with($this->isType('array'))
+            ->willReturn(json_decode($response['body'], true));
 
         $pricehubble_mock->expects($this->once())
-      ->method('determineSuccess')
-      ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
-      ->willReturn(true);
+            ->method('determineSuccess')
+            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+            ->willReturn(true);
 
         $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
         $curl_exec_mock->expects($this->any())->willReturn($body_txt);
@@ -252,14 +252,14 @@ Content-Type: application/json';
         $curl_getinfo_mock->expects($this->any())->willReturn($response['headers']);
 
         $result = $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
-      'post', 'https://api.pricehubble.com/auth/login/credentials',
-      ['foo' => 'bar'],
-      10,
-    ]);
+            'post', 'https://api.pricehubble.com/auth/login/credentials',
+            ['foo' => 'bar'],
+            10,
+        ]);
         self::assertSame([
-        'access_token' => '74126eab0a9048d993bda4b1b55ae074',
-        'expires_in' => 43200,
-    ], $result);
+            'access_token' => '74126eab0a9048d993bda4b1b55ae074',
+            'expires_in' => 43200,
+        ], $result);
     }
 
     /**
@@ -270,9 +270,9 @@ Content-Type: application/json';
     public function testFindHttpStatus($response, $formatted_response, $expected_code)
     {
         $code = $this->callPrivateMethod($this->pricehubble, 'findHttpStatus', [
-      $response,
-      $formatted_response,
-    ]);
+            $response,
+            $formatted_response,
+        ]);
         self::assertEquals($expected_code, $code);
     }
 
@@ -285,47 +285,47 @@ Content-Type: application/json';
     public function providerHttpStatus()
     {
         return [
-      [
-        ['headers' => ['http_code' => 400]],
-        null,
-        400,
-      ],
-      [
-        ['headers' => null],
-        ['code' => 300],
-        418,
-      ],
-      [
-        ['headers' => null, 'body' => ''],
-        ['code' => 300],
-        418,
-      ],
-      [
-        ['headers' => ['http_code' => 400]],
-        ['code' => 300],
-        400,
-      ],
-      [
-        ['body' => 'lorem'],
-        ['code' => 318],
-        318,
-      ],
-      [
-        ['body' => ''],
-        ['code' => 318],
-        418,
-      ],
-      [
-        [],
-        null,
-        418,
-      ],
-      [
-        ['headers' => []],
-        [],
-        418,
-      ],
-    ];
+            [
+                ['headers' => ['http_code' => 400]],
+                null,
+                400,
+            ],
+            [
+                ['headers' => null],
+                ['code' => 300],
+                418,
+            ],
+            [
+                ['headers' => null, 'body' => ''],
+                ['code' => 300],
+                418,
+            ],
+            [
+                ['headers' => ['http_code' => 400]],
+                ['code' => 300],
+                400,
+            ],
+            [
+                ['body' => 'lorem'],
+                ['code' => 318],
+                318,
+            ],
+            [
+                ['body' => ''],
+                ['code' => 318],
+                418,
+            ],
+            [
+                [],
+                null,
+                418,
+            ],
+            [
+                ['headers' => []],
+                [],
+                418,
+            ],
+        ];
     }
 
     /**
@@ -336,17 +336,17 @@ Content-Type: application/json';
     public function testDetermineSuccessStatus200($code)
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-      ->onlyMethods(['findHttpStatus'])
-      ->getMock();
+            ->onlyMethods(['findHttpStatus'])
+            ->getMock();
 
         $pricehubble_mock->expects($this->once())
-      ->method('findHttpStatus')
-      ->willReturn($code);
+            ->method('findHttpStatus')
+            ->willReturn($code);
 
         self::assertFalse($pricehubble_mock->success());
         $result = $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
-      [], false, 0,
-    ]);
+            [], false, 0,
+        ]);
         self::assertTrue($result);
         self::assertTrue($pricehubble_mock->success());
     }
@@ -360,16 +360,16 @@ Content-Type: application/json';
     public function providerStatus200()
     {
         return [
-      [
-        200,
-      ],
-      [
-        250,
-      ],
-      [
-        299,
-      ],
-    ];
+            [
+                200,
+            ],
+            [
+                250,
+            ],
+            [
+                299,
+            ],
+        ];
     }
 
     /**
@@ -378,18 +378,18 @@ Content-Type: application/json';
     public function testDetermineSuccessErrorMessage()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-      ->onlyMethods(['findHttpStatus'])
-      ->getMock();
+            ->onlyMethods(['findHttpStatus'])
+            ->getMock();
 
         $pricehubble_mock->expects($this->once())
-      ->method('findHttpStatus')
-      ->willReturn(400);
+            ->method('findHttpStatus')
+            ->willReturn(400);
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('400 Unsupported country code.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
-      [], ['message' => 'Unsupported country code.'], 0,
-    ]);
+            [], ['message' => 'Unsupported country code.'], 0,
+        ]);
 
         self::assertEquals('ERROR 400: Unsupported country code.', $pricehubble_mock->getLastError());
     }
@@ -422,18 +422,18 @@ Content-Type: application/json';
     public function testDetermineSuccessTimeout()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-      ->onlyMethods(['findHttpStatus'])
-      ->getMock();
+            ->onlyMethods(['findHttpStatus'])
+            ->getMock();
 
         $pricehubble_mock->expects($this->once())
-      ->method('findHttpStatus')
-      ->willReturn(100);
+            ->method('findHttpStatus')
+            ->willReturn(100);
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Request timed out after 20.000000 seconds.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
-      ['headers' => ['total_time' => 20]], null, 5,
-    ]);
+            ['headers' => ['total_time' => 20]], null, 5,
+        ]);
     }
 
     /**
@@ -442,18 +442,18 @@ Content-Type: application/json';
     public function testDetermineSuccessUnknown()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-      ->onlyMethods(['findHttpStatus'])
-      ->getMock();
+            ->onlyMethods(['findHttpStatus'])
+            ->getMock();
 
         $pricehubble_mock->expects($this->once())
-      ->method('findHttpStatus')
-      ->willReturn(100);
+            ->method('findHttpStatus')
+            ->willReturn(100);
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Unknown error, call getLastResponse() to find out what happened.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
-      ['headers' => ['total_time' => 20]], null, 35,
-    ]);
+            ['headers' => ['total_time' => 20]], null, 35,
+        ]);
 
         self::assertEquals('Unknown error, call getLastResponse() to find out what happened.', $pricehubble_mock->getLastError());
     }
@@ -464,23 +464,23 @@ Content-Type: application/json';
     public function testPrepareStateForRequest()
     {
         $this->callPrivateMethod($this->pricehubble, 'prepareStateForRequest', [
-      'post', 'https://api.pricehubble.com/api/v1/pois', 23,
-    ]);
+            'post', 'https://api.pricehubble.com/api/v1/pois', 23,
+        ]);
 
         self::assertFalse($this->pricehubble->success());
         self::assertFalse($this->pricehubble->getLastError());
         self::assertSame([
-      'headers' => null,
-      'httpHeaders' => null,
-      'body' => null,
-    ], $this->pricehubble->getLastResponse());
+            'headers' => null,
+            'httpHeaders' => null,
+            'body' => null,
+        ], $this->pricehubble->getLastResponse());
         self::assertSame([
-      'scheme' => 'https',
-      'host' => 'api.pricehubble.com',
-      'path' => '/api/v1/pois',
-      'method' => 'post',
-      'body' => '',
-      'timeout' => 23,
-    ], $this->pricehubble->getLastRequest());
+            'scheme' => 'https',
+            'host' => 'api.pricehubble.com',
+            'path' => '/api/v1/pois',
+            'method' => 'post',
+            'body' => '',
+            'timeout' => 23,
+        ], $this->pricehubble->getLastRequest());
     }
 }
