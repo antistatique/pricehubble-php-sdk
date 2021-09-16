@@ -1,6 +1,6 @@
 <?php
 
-namespace Antistatique\Pricehubble\Tests\Unit;
+namespace Antistatique\Pricehubble\Tests\Unit\Resource;
 
 use Antistatique\Pricehubble\Pricehubble;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class ValuationTest extends TestCase
      */
     public function testFullReturnsExpected(): void
     {
-        $response = json_decode(file_get_contents(__DIR__.'/../responses/valuation-full.json'), true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode(file_get_contents(__DIR__.'/../../responses/valuation-full.json'), true, 512, JSON_THROW_ON_ERROR);
 
         $fullParams = [
           'dealType' => 'sale',
@@ -68,7 +68,7 @@ class ValuationTest extends TestCase
      */
     public function testLightReturnsExpected(): void
     {
-        $response = json_decode(file_get_contents(__DIR__.'/../responses/valuation-light.json'), true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode(file_get_contents(__DIR__.'/../../responses/valuation-light.json'), true, 512, JSON_THROW_ON_ERROR);
 
         $lightParams = [
             'dealType' => 'sale',
