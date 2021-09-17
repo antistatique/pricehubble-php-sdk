@@ -1,6 +1,9 @@
 name: Static Code Anylzer & Tests
 on:
   push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * THU'
 
 jobs:
     phpcpd:
@@ -63,6 +66,3 @@ jobs:
               run: |
                 composer global require php-coveralls/php-coveralls
                 php-coveralls --coverage_clover=build/logs/clover.xml -v
-#              run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
-#            - name: Update Coveralls
-#              run: php vendor/bin/php-coveralls -v
