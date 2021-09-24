@@ -149,8 +149,7 @@ class PointsOfInterestTest extends TestCase
                     'category' => 'education',
                     'distance' => 256,
                     'location' => [
-                            'address' =>
-                                [
+                            'address' => [
                                     'city' => 'Lausanne',
                                     'houseNumber' => '26-28',
                                     'postCode' => '1004',
