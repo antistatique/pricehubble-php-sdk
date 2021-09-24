@@ -3,6 +3,7 @@
 namespace Antistatique\Pricehubble\Tests\Unit\Resource;
 
 use Antistatique\Pricehubble\Pricehubble;
+use Antistatique\Pricehubble\Resource\AbstractResource;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,6 +14,16 @@ use PHPUnit\Framework\TestCase;
  */
 class ValuationTest extends TestCase
 {
+    /**
+     * @covers \Antistatique\Pricehubble\Pricehubble::__call
+     */
+    public function testCallReturnsExpected(): void
+    {
+        $pricehubble = new Pricehubble();
+        $resource = $pricehubble->valuation();
+        self::assertInstanceOf(AbstractResource::class, $resource);
+    }
+
     /**
      * @covers ::full
      */

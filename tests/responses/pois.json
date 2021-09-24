@@ -1,23 +1,130 @@
 {
-  "totalItems": 1,
   "items": [
     {
-      "name": "Waidfussweg",
-      "category": "education",
-      "subcategory": "kindergarten",
+      "category": "leisure",
+      "distance": 89,
       "location": {
         "coordinates": {
-          "latitude": 47.39780,
-          "longitude": 8.51751
-        },
-        "address": {
-          "postCode": "8037",
-          "city": "Zürich",
-          "street": "Waidfussweg",
-          "houseNumber": "61"
+          "latitude": 46.5251541137695,
+          "longitude": 6.61354732513428
         }
       },
-      "distance": 193
+      "name": "Laser Game",
+      "subcategory": "sport"
+    },
+    {
+      "category": "leisure",
+      "distance": 118,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5265121459961,
+          "longitude": 6.6127724647522
+        }
+      },
+      "name": "Av. de Morges 60, Lausanne",
+      "subcategory": "playground"
+    },
+    {
+      "category": "education",
+      "distance": 137,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5266304016113,
+          "longitude": 6.61183977127075
+        }
+      },
+      "name": "Jardins de Prélaz",
+      "subcategory": "kindergarten"
+    },
+    {
+      "category": "leisure",
+      "distance": 143,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5267601013184,
+          "longitude": 6.61249494552612
+        }
+      },
+      "name": "Av. de Morges 60a, Lausanne",
+      "subcategory": "playground"
+    },
+    {
+      "category": "leisure",
+      "distance": 169,
+      "location": {
+        "coordinates": {
+          "latitude": 46.526481628418,
+          "longitude": 6.61412763595581
+        }
+      },
+      "subcategory": "sport"
+    },
+    {
+      "category": "leisure",
+      "distance": 245,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5275077819824,
+          "longitude": 6.6112322807312
+        }
+      },
+      "name": "Av. de Sévery 3, Lausanne",
+      "subcategory": "playground"
+    },
+    {
+      "category": "leisure",
+      "distance": 251,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5276718139648,
+          "longitude": 6.61325788497925
+        }
+      },
+      "name": "Parc des Vignes-d'Argent",
+      "subcategory": "park"
+    },
+    {
+      "category": "education",
+      "distance": 256,
+      "location": {
+        "address": {
+          "city": "Lausanne",
+          "houseNumber": "26-28",
+          "postCode": "1004",
+          "street": "Avenue de Provence"
+        },
+        "coordinates": {
+          "latitude": 46.5234680175781,
+          "longitude": 6.6108078956604
+        }
+      },
+      "name": "Gymnase Provence",
+      "subcategory": "university"
+    },
+    {
+      "category": "education",
+      "distance": 261,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5267715454102,
+          "longitude": 6.61532020568848
+        }
+      },
+      "name": "Collège de Prélaz",
+      "subcategory": "primary_school"
+    },
+    {
+      "category": "education",
+      "distance": 261,
+      "location": {
+        "coordinates": {
+          "latitude": 46.5267715454102,
+          "longitude": 6.61532020568848
+        }
+      },
+      "name": "Collège de Prélaz",
+      "subcategory": "kindergarten"
     }
-  ]
+  ],
+  "totalItems": 124
 }

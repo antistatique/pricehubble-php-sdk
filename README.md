@@ -53,14 +53,14 @@ $response = $pricehubble->valuation()->full([
             'property' => [
                 'location' => [
                     'address' => [
-                        'postCode' => 8037,
+                        'postCode' => '8037',
                         'city' => 'Zürich',
                         'street' => 'Nordstrasse',
                         'houseNumber' => '391'
                     ],
                 ],
                 'buildingYear' => 1850,
-                'livingArea' => 1500.00,
+                'livingArea' => 800,
                 'propertyType' => [
                     'code' => 'apartment'
                 ],
@@ -83,19 +83,19 @@ If you would like to perform valuations for multiple properties (in a single cal
 ```php
 $pricehubble = new Pricehubble();
 $pricehubble->authenticate($username, $password)
-$response = $pricehubble->valuation()->full([
+$response = $pricehubble->valuation()->light([
     'dealType' => 'sale',
     'property' => [
         'location' => [
             'address' => [
-                'postCode' => 8037,
+                'postCode' => '8037',
                 'city' => 'Zürich',
                 'street' => 'Nordstrasse',
                 'houseNumber' => '391'
             ],
         ],
         'buildingYear' => 1850,
-        'livingArea' => 1500.00,
+        'livingArea' => 800,
         'propertyType' => [
             'code' => 'apartment'
         ],
@@ -107,7 +107,7 @@ print_r($response);
 
 ### Points of Interest
 
-Returns points of interests such as schools, shops, etc. that match the specified search criteria.
+Returns point of interests such as schools, shops, etc. that match the specified search criteria.
 
 👉 https://docs.pricehubble.com/international/pois/
 
