@@ -2,7 +2,7 @@
 /**
  * Example to perform valuations for the specified real estate properties.
  */
-include_once "../base.php";
+include_once '../base.php';
 
 /********************************
 Create the Pricehubble object
@@ -52,4 +52,4 @@ $response = $pricehubble->valuation()->full([
 
 ?>
 
-<?= renderResponse('Valuations for the specified real estate properties', $response); ?>
+<?php echo renderResponse('Valuations for the specified real estate properties', $response); ?>

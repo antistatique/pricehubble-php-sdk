@@ -2,7 +2,7 @@
 /**
  * Example to perform a simple valuation of the specified property.
  */
-include_once "../base.php";
+include_once '../base.php';
 
 /********************************
 Create the Pricehubble object
@@ -27,13 +27,13 @@ $response = $pricehubble->valuation()->light([
                 'postCode' => '8037',
                 'city' => 'Zürich',
                 'street' => 'Nordstrasse',
-                'houseNumber' => '391'
+                'houseNumber' => '391',
             ],
         ],
         'buildingYear' => 1850,
         'livingArea' => 800,
         'propertyType' => [
-            'code' => 'apartment'
+            'code' => 'apartment',
         ],
     ],
     'countryCode' => 'CH',
@@ -41,4 +41,4 @@ $response = $pricehubble->valuation()->light([
 
 ?>
 
-<?= renderResponse('Simple valuation of the specified property', $response); ?>
+<?php echo renderResponse('Simple valuation of the specified property', $response); ?>

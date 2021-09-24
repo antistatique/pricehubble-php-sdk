@@ -3,7 +3,7 @@
  * Example to return point of interests such as schools, shops, etc. that match
  * the specified search criteria.
  */
-include_once "../base.php";
+include_once '../base.php';
 
 /********************************
 Create the Pricehubble object
@@ -41,4 +41,4 @@ $response = $pricehubble->pointsOfInterest()->gather([
 
 ?>
 
-<?= renderResponse('Points of Interest on the coordinate for the search criteria', $response); ?>
+<?php echo renderResponse('Points of Interest on the coordinate for the search criteria', $response); ?>
