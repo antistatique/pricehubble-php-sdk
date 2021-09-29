@@ -138,6 +138,7 @@ class Pricehubble
         if (isset($response['access_token'])) {
             $this->setApiToken($response['access_token']);
         }
+
         return $this;
     }
 
