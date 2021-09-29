@@ -128,7 +128,7 @@ class Pricehubble
      *
      * @throws \Exception
      */
-    public function authenticate(string $username, string $password, int $timeout = self::TIMEOUT): void
+    public function authenticate(string $username, string $password, int $timeout = self::TIMEOUT): self
     {
         $response = $this->makeRequest('post', 'https://api.pricehubble.com/auth/login/credentials', [
             'username' => $username,
@@ -138,6 +138,8 @@ class Pricehubble
         if (isset($response['access_token'])) {
             $this->setApiToken($response['access_token']);
         }
+        
+        return $this;
     }
 
     /**
