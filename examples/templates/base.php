@@ -23,7 +23,7 @@ function getEnvVariables()
   ];
 }
 
-/* Ad hoc functions to make the examples marginally prettier.*/
+/* Ad hoc functions to make the examples marginally prettier. */
 function isWebRequest()
 {
     return isset($_SERVER['HTTP_USER_AGENT']);
