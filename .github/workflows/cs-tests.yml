@@ -6,6 +6,13 @@ on:
     - cron: '0 0 * * THU'
 
 jobs:
+    security-checker:
+        name: security-checker
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: symfonycorp/security-checker-action@v3
+
     phpcpd:
         name: phpcpd
         runs-on: ubuntu-latest
