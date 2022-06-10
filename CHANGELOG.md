@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Security
 - update library guzzlehttp/guzzle 7.4.2 => 7.4.3 (CVE-2022-29248)
+- update library guzzlehttp/guzzle 7.4.3 => 7.4.4 (CVE-2022-31042 & CVE-2022-31043)
 
 ## [1.0.0] - 2022-05-11
 ### Added
