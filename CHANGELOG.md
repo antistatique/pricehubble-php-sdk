@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.1] - 2022-06-10
 ### Security
 - update library guzzlehttp/guzzle 7.4.2 => 7.4.3 (CVE-2022-29248)
 - update library guzzlehttp/guzzle 7.4.3 => 7.4.4 (CVE-2022-31042 & CVE-2022-31043)
@@ -21,5 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - remove sensiolabs/security-checker in favor of Github Actions security-checker
 
-[Unreleased]: https://github.com/antistatique/pricehubble-php-sdk/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/antistatique/pricehubble-php-sdk/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/antistatique/pricehubble-php-sdk/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/antistatique/pricehubble-php-sdk/releases/tag/v1.0.0
