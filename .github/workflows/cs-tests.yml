@@ -1,7 +1,6 @@
 name: Static Code Anylzer & Tests
 on:
   push:
-  pull_request:
   schedule:
     - cron: '0 0 * * THU'
 
@@ -10,7 +9,13 @@ jobs:
         name: security-checker
         runs-on: ubuntu-latest
         steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@2.12.0
+              with:
+                  php-version: '7.4'
+                  tools: composer:v2
             - uses: actions/checkout@v2
+            - run: composer install --prefer-dist
             - uses: symfonycorp/security-checker-action@v3
 
     phpcpd:
