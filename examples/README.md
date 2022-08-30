@@ -24,7 +24,7 @@ $ cp examples/.env.example examples/.env
 4. Run the PHP built-in web server. Supply the `-t` option to this directory:
 
 ```bash
-$ php -s localhost:8000 -t examples/
+$ php -S localhost:8000 -t examples/
 ```
 
 5. Point your browser to the host and port you specified.

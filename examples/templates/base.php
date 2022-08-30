@@ -18,8 +18,8 @@ if (file_exists($env)) {
 function getEnvVariables()
 {
     return [
-    'PRICEHUBBLE_USERNAME' => getenv('PRICEHUBBLE_USERNAME'),
-    'PRICEHUBBLE_PASS' => getenv('PRICEHUBBLE_PASS'),
+    'PRICEHUBBLE_USERNAME' => $_ENV['PRICEHUBBLE_USERNAME'],
+    'PRICEHUBBLE_PASS' => $_ENV['PRICEHUBBLE_PASS'],
   ];
 }
 
