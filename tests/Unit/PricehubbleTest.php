@@ -450,7 +450,7 @@ Content-Type: application/json';
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('401 invalid_request: The access token is missing');
-        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess',[
+        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, [
               'error_description' => 'The access token is missing',
               'error' => 'invalid_request',
@@ -486,7 +486,7 @@ Content-Type: application/json';
         $pricehubble_mock = new Pricehubble();
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage("403 Forbidden");
+        $this->expectExceptionMessage('403 Forbidden');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, ['message' => 'Forbidden'], 0,
         ]);
@@ -504,7 +504,7 @@ Content-Type: application/json';
         $pricehubble_mock = new Pricehubble();
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage("403 Forbidden");
+        $this->expectExceptionMessage('403 Forbidden');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, ['message' => ['message' => 'Forbidden']], 0,
         ]);
