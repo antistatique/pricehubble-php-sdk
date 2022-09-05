@@ -240,10 +240,10 @@ class Pricehubble
      * @param int         $timeout
      *                                       The timeout supplied to the curl request
      *
-     * @throws \Exception
-     *
      * @return bool
      *              If the request was successful
+     *
+     * @throws \Exception
      */
     protected function determineSuccess(array $response, $formattedResponse, int $timeout): bool
     {
@@ -308,10 +308,10 @@ class Pricehubble
      * @param array $response
      *                        The response from the curl request
      *
-     * @throws \JsonException
-     *
      * @return array|false
      *                     A decoded array from JSON response
+     *
+     * @throws \JsonException
      */
     protected function formatResponse(array $response)
     {
@@ -370,10 +370,10 @@ class Pricehubble
      * @param int    $timeout
      *                          Timeout limit for request in seconds
      *
-     * @throws \Exception
-     *
      * @return array|bool
      *                    A decoded array of result or a boolean on unattended response
+     *
+     * @throws \Exception
      */
     public function makeRequest(string $http_verb, string $url, array $args = [], int $timeout = self::TIMEOUT)
     {
@@ -386,7 +386,7 @@ class Pricehubble
 
         // add Authorization token for any verb.
         if ($this->getApiToken()) {
-          $httpHeader[] = "Authorization: Bearer {$this->getApiToken()}";
+            $httpHeader[] = "Authorization: Bearer {$this->getApiToken()}";
         }
 
         if (isset($args['language'])) {
@@ -505,10 +505,10 @@ class Pricehubble
      * @param resource    $curl
      *                                      The curl resource
      *
-     * @throws \Exception
-     *
      * @return array
      *               The modified response
+     *
+     * @throws \Exception
      */
     protected function setResponseState(array $response, $response_content, $curl): array
     {

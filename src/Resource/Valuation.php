@@ -19,10 +19,10 @@ final class Valuation extends AbstractResource
      * @param int   $timeout
      *                       Timeout limit for request in seconds
      *
-     * @throws \Exception
-     *
      * @return array|bool
      *                    A decoded array of result or a boolean on unattended response
+     *
+     * @throws \Exception
      */
     public function full(array $args = [], int $timeout = Pricehubble::TIMEOUT)
     {
@@ -37,10 +37,10 @@ final class Valuation extends AbstractResource
      * @param int   $timeout
      *                       Timeout limit for request in seconds
      *
-     * @throws \Exception
-     *
      * @return array|bool
      *                    A decoded array of result or a boolean on unattended response
+     *
+     * @throws \Exception
      */
     public function light(array $args = [], int $timeout = Pricehubble::TIMEOUT)
     {
