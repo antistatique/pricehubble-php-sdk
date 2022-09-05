@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- use an Authorization HTTP header to transmit access_token on requests instead of passing the access_token in query parameter
 
 ## [1.0.1] - 2022-06-10
 ### Security
