@@ -440,6 +440,77 @@ Content-Type: application/json';
     }
 
     /**
+     * @covers ::determineSuccess
+     */
+    public function testDetermineSuccess401MissingToken()
+    {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/401-missing-token.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $pricehubble_mock = new Pricehubble();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('401 invalid_request: The access token is missing');
+        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
+            $response, [
+              'error_description' => 'The access token is missing',
+              'error' => 'invalid_request',
+            ], 0,
+        ]);
+    }
+
+    /**
+     * @covers ::determineSuccess
+     */
+    public function testDetermineSuccess403MissingProperty()
+    {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/403-missing-property.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $pricehubble_mock = new Pricehubble();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("403 'dossierId', 'simulationId' or 'buildingId' is a required property");
+        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
+            $response, [
+              'message' => "'dossierId', 'simulationId' or 'buildingId' is a required property",
+          ], 0,
+        ]);
+    }
+
+    /**
+     * @covers ::determineSuccess
+     */
+    public function testDetermineSuccess403Forbidden()
+    {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/403-forbidden.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $pricehubble_mock = new Pricehubble();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('403 Forbidden');
+        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
+            $response, ['message' => 'Forbidden'], 0,
+        ]);
+    }
+
+    /**
+     * @covers ::determineSuccess
+     *
+     * Cover the scenario of inconsistency on Pricehubble API with nested message.
+     */
+    public function testDetermineSuccess403ForbiddenNested()
+    {
+        $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/403-forbidden-nested.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $pricehubble_mock = new Pricehubble();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('403 Forbidden');
+        $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
+            $response, ['message' => ['message' => 'Forbidden']], 0,
+        ]);
+    }
+
+    /**
      * @covers ::prepareStateForRequest
      */
     public function testPrepareStateForRequest()
