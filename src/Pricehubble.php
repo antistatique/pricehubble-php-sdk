@@ -255,7 +255,13 @@ class Pricehubble
             return true;
         }
 
-        if (isset($formattedResponse['message'])) {
+        if (isset($formattedResponse['message']) && isset($formattedResponse['message']['message']) && is_string($formattedResponse['message']['message'])) {
+            $this->lastError = sprintf('%d %s', $status, $formattedResponse['message']['message']);
+
+            throw new \Exception($this->lastError);
+        }
+
+        if (isset($formattedResponse['message']) && is_string($formattedResponse['message'])) {
             $this->lastError = sprintf('%d %s', $status, $formattedResponse['message']);
 
             throw new \Exception($this->lastError);

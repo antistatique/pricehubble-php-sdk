@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- cover the scenario of inconsistency on Pricehubble API with nested message
+
 ### Changed
 - use an Authorization HTTP header to transmit access_token on requests instead of passing the access_token in query parameter
 
