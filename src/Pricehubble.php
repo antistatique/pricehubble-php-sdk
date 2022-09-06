@@ -390,6 +390,11 @@ class Pricehubble
             'Content-Type: application/json',
         ];
 
+        // add Authorization token for any verb.
+        if ($this->getApiToken()) {
+            $httpHeader[] = "Authorization: Bearer {$this->getApiToken()}";
+        }
+
         if (isset($args['language'])) {
             $httpHeader[] = 'Accept-Language: '.$args['language'];
         }
@@ -410,17 +415,6 @@ class Pricehubble
         curl_setopt($curl, \CURLOPT_ENCODING, '');
         curl_setopt($curl, \CURLINFO_HEADER_OUT, true);
 
-        // Set credentials for non GET verb.
-        if ($this->getApiToken() && \in_array($http_verb, [
-                'post',
-                'delete',
-                'patch',
-                'put',
-            ], true)) {
-            $url .= '?'.http_build_query(['access_token' => $this->apiAuthToken], '', '&');
-            curl_setopt($curl, \CURLOPT_URL, $url);
-        }
-
         switch ($http_verb) {
             case 'post':
                 curl_setopt($curl, \CURLOPT_POST, true);
@@ -429,11 +423,6 @@ class Pricehubble
                 break;
 
             case 'get':
-                // Set credentials for GET verb.
-                if ($this->getApiToken()) {
-                    $args += ['access_token' => $this->getApiToken()];
-                }
-
                 $query = http_build_query($args, '', '&');
                 curl_setopt($curl, \CURLOPT_URL, $url.'?'.$query);
 

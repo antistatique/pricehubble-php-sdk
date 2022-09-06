@@ -581,7 +581,7 @@ Content-Type: application/json';
             ->method('prepareStateForRequest')
             ->with('get', 'https://example.org', 10);
 
-        $pricehubble_mock->expects($this->exactly(3))
+        $pricehubble_mock->expects($this->exactly(2))
             ->method('getApiToken')
             ->willReturn('api-token');
 
@@ -623,7 +623,7 @@ Content-Type: application/json';
             ->method('prepareStateForRequest')
             ->with($verb, 'https://example.org', 10);
 
-        $pricehubble_mock->expects($this->exactly(1))
+        $pricehubble_mock->expects($this->exactly(2))
             ->method('getApiToken')
             ->willReturn('api-token');
 

@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - cover the scenario of inconsistency on Pricehubble API with nested message
 
+### Changed
+- use an Authorization HTTP header to transmit access_token on requests instead of passing the access_token in query parameter
+
 ## [1.0.1] - 2022-06-10
 ### Security
 - update library guzzlehttp/guzzle 7.4.2 => 7.4.3 (CVE-2022-29248)
