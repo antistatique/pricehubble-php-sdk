@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.12.0
+              uses: shivammathur/setup-php@v2
               with:
                   tools: composer:v2
             - uses: actions/checkout@v2
@@ -22,48 +22,53 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.12.0
+              uses: shivammathur/setup-php@v2
               with:
                   tools: composer:v2, phpcpd
             - name: Checkout
               uses: actions/checkout@v2.3.4
             - run: composer install --prefer-dist
-            - run: phpcpd ./ --exclude=vendor --exclude=bin --exclude=tests
+            - run: ./vendor/bin/phpcpd ./ --exclude=vendor --exclude=bin --exclude=tests
 
     php-cs-fixer:
         name: php-cs-fixer
         runs-on: ubuntu-latest
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.12.0
+              uses: shivammathur/setup-php@v2
               with:
                   tools: composer:v2, php-cs-fixer, cs2pr
             - name: Checkout
               uses: actions/checkout@v2.3.4
             - run: composer install --prefer-dist
-            - run: php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --format=checkstyle | cs2pr
+            - run: ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --format=checkstyle | cs2pr
 
     psalm:
         name: psalm
         runs-on: ubuntu-latest
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.12.0
-              with:
-                  tools: composer:v2, psalm
+              uses: shivammathur/setup-php@v2
             - uses: actions/checkout@v2
             - run: composer install --prefer-dist
-            - run: psalm --config=psalm.xml --no-cache --output-format=github
+            - run: ./vendor/bin/psalm --output-format=github
 
     tests:
         runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            php-versions: ['8.0', '8.1', '8.2']
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.12.0
+              uses: shivammathur/setup-php@v2
               with:
                   tools: composer:v2
+                  php-version: ${{ matrix.php-versions }}
             - uses: actions/checkout@v2
             - uses: php-actions/composer@v6
+              with:
+                  php_version: ${{ matrix.php-versions }}
+                  version: 2
             - run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
             - name: Upload coverage results to Coveralls
               env:

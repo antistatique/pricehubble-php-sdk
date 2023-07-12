@@ -5,7 +5,6 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @coversDefaultClass \Antistatique\Pricehubble\Resource\AbstractResource
@@ -44,7 +43,7 @@ final class AbstractResourceTest extends TestCase
             ->with($pricehubble);
 
         // Now call the constructor
-        $reflectedClass = new ReflectionClass(AbstractResource::class);
+        $reflectedClass = new \ReflectionClass(AbstractResource::class);
         $constructor = $reflectedClass->getConstructor();
         $constructor->invoke($mock, $pricehubble);
     }

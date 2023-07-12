@@ -3,14 +3,14 @@
   "description": "Super-simple, minimum abstraction Pricehubble API v1.x wrapper, in PHP",
   "license": "MIT",
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-curl": "*",
     "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^9",
     "symfony/dotenv": "^5.4",
-    "friendsofphp/php-cs-fixer": "^3.0",
+    "friendsofphp/php-cs-fixer": "^3.21",
     "phpmd/phpmd": "^2.6",
     "sebastian/phpcpd": "^6.0",
     "php-coveralls/php-coveralls": "^2.1",
