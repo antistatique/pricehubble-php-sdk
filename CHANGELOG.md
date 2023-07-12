@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - run tests over multiple PHP version
 
+### Security
+- update friendsofphp/php-cs-fixer (v3.4.0 => v3.21.1)
+
 ## [1.0.2] - 2022-09-06
 ### Added
 - cover the scenario of inconsistency on Pricehubble API with nested message

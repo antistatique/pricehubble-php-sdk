@@ -5,8 +5,6 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
 use Antistatique\Pricehubble\Tests\Traits\TestPrivateTrait;
-use BadMethodCallException;
-use Exception;
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\TestCase;
 
@@ -103,7 +101,7 @@ final class PricehubbleTest extends TestCase
      */
     public function testMagicCallReturnsException(): void
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('Undefined method foo');
         $this->pricehubble->foo();
     }
@@ -209,7 +207,7 @@ final class PricehubbleTest extends TestCase
         $curl_error_mock->expects($this->once())
             ->willReturn('Something went wrong.');
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Something went wrong.');
         $this->callPrivateMethod($this->pricehubble, 'setResponseState', [
             [], false, null,
@@ -366,7 +364,7 @@ Content-Type: application/json';
             ->method('findHttpStatus')
             ->willReturn(400);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('400 Unsupported country code.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             [], ['message' => 'Unsupported country code.'], 0,
@@ -388,7 +386,7 @@ Content-Type: application/json';
             ->method('findHttpStatus')
             ->willReturn(401);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('401 invalid_token: The access token is invalid or has expired');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             [], ['error_description' => 'The access token is invalid or has expired', 'error' => 'invalid_token'], 0,
@@ -410,7 +408,7 @@ Content-Type: application/json';
             ->method('findHttpStatus')
             ->willReturn(100);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Request timed out after 20.000000 seconds.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             ['headers' => ['total_time' => 20]], null, 5,
@@ -430,7 +428,7 @@ Content-Type: application/json';
             ->method('findHttpStatus')
             ->willReturn(100);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Unknown error, call getLastResponse() to find out what happened.');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             ['headers' => ['total_time' => 20]], null, 35,
@@ -448,7 +446,7 @@ Content-Type: application/json';
 
         $pricehubble_mock = new Pricehubble();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('401 invalid_request: The access token is missing');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, [
@@ -467,7 +465,7 @@ Content-Type: application/json';
 
         $pricehubble_mock = new Pricehubble();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage("403 'dossierId', 'simulationId' or 'buildingId' is a required property");
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, [
@@ -485,7 +483,7 @@ Content-Type: application/json';
 
         $pricehubble_mock = new Pricehubble();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('403 Forbidden');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, ['message' => 'Forbidden'], 0,
@@ -503,7 +501,7 @@ Content-Type: application/json';
 
         $pricehubble_mock = new Pricehubble();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage('403 Forbidden');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, ['message' => ['message' => 'Forbidden']], 0,
