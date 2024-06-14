@@ -32,35 +32,35 @@ class ValuationTest extends TestCase
         $response = json_decode(file_get_contents(__DIR__.'/../../responses/valuation-full.json'), true, 512, JSON_THROW_ON_ERROR);
 
         $fullParams = [
-          'dealType' => 'sale',
-          'valuationInputs' => [
-            [
-              'property' => [
-                'location' => [
-                  'address' => [
-                    'postCode' => 8037,
-                    'city' => 'Zürich',
-                    'street' => 'Nordstrasse',
-                    'houseNumber' => '391',
-                  ],
+            'dealType' => 'sale',
+            'valuationInputs' => [
+                [
+                    'property' => [
+                        'location' => [
+                            'address' => [
+                                'postCode' => 8037,
+                                'city' => 'Zürich',
+                                'street' => 'Nordstrasse',
+                                'houseNumber' => '391',
+                            ],
+                        ],
+                        'buildingYear' => 1850,
+                        'livingArea' => 130,
+                        'propertyType' => [
+                            'code' => 'apartment',
+                            'subcode' => 'apartment_normal',
+                        ],
+                        'numberOfRooms' => 5,
+                        'gardenArea' => 25,
+                        'balconyArea' => 5,
+                        'numberOfIndoorParkingSpaces' => 1,
+                        'numberOfOutdoorParkingSpaces' => 2,
+                        'numberOfBathrooms' => 2,
+                        'renovationYear' => 2019,
+                    ],
                 ],
-                'buildingYear' => 1850,
-                'livingArea' => 130,
-                'propertyType' => [
-                  'code' => 'apartment',
-                  'subcode' => 'apartment_normal',
-                ],
-                'numberOfRooms' => 5,
-                'gardenArea' => 25,
-                'balconyArea' => 5,
-                'numberOfIndoorParkingSpaces' => 1,
-                'numberOfOutdoorParkingSpaces' => 2,
-                'numberOfBathrooms' => 2,
-                'renovationYear' => 2019,
-              ],
             ],
-          ],
-          'countryCode' => 'CH',
+            'countryCode' => 'CH',
         ];
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
             ->onlyMethods(['makeRequest'])

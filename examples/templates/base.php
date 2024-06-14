@@ -3,7 +3,7 @@
 include_once \dirname(__DIR__).'/../vendor/autoload.php';
 
 if (!\class_exists('Symfony\Component\Dotenv\Dotenv')) {
-    throw new \RuntimeException('You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    throw new RuntimeException('You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
 }
 
 $env = \dirname(__DIR__).'/.env';
@@ -12,15 +12,15 @@ if (file_exists($env)) {
     $dotenv = new Symfony\Component\Dotenv\Dotenv($env);
     $dotenv->load($env);
 } else {
-    throw new \RuntimeException('You need to define a .env file.');
+    throw new RuntimeException('You need to define a .env file.');
 }
 
 function getEnvVariables()
 {
     return [
-    'PRICEHUBBLE_USERNAME' => $_ENV['PRICEHUBBLE_USERNAME'],
-    'PRICEHUBBLE_PASS' => $_ENV['PRICEHUBBLE_PASS'],
-  ];
+        'PRICEHUBBLE_USERNAME' => $_ENV['PRICEHUBBLE_USERNAME'],
+        'PRICEHUBBLE_PASS' => $_ENV['PRICEHUBBLE_PASS'],
+    ];
 }
 
 /* Ad hoc functions to make the examples marginally prettier. */

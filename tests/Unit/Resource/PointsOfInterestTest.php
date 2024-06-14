@@ -149,20 +149,20 @@ class PointsOfInterestTest extends TestCase
                     'category' => 'education',
                     'distance' => 256,
                     'location' => [
-                            'address' => [
-                                    'city' => 'Lausanne',
-                                    'houseNumber' => '26-28',
-                                    'postCode' => '1004',
-                                    'street' => 'Avenue de Provence',
-                                ],
-                        'coordinates' => [
-                                    'latitude' => 46.5234680175781,
-                                    'longitude' => 6.6108078956604,
-                            ],
+                        'address' => [
+                            'city' => 'Lausanne',
+                            'houseNumber' => '26-28',
+                            'postCode' => '1004',
+                            'street' => 'Avenue de Provence',
                         ],
-                        'name' => 'Gymnase Provence',
-                        'subcategory' => 'university',
+                        'coordinates' => [
+                            'latitude' => 46.5234680175781,
+                            'longitude' => 6.6108078956604,
+                        ],
                     ],
+                    'name' => 'Gymnase Provence',
+                    'subcategory' => 'university',
+                ],
                 8 => [
                     'category' => 'education',
                     'distance' => 261,

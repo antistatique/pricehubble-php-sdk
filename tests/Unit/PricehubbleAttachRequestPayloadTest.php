@@ -23,7 +23,7 @@ final class PricehubbleAttachRequestPayloadTest extends TestCase
     /**
      * The Pricehubble base API instance.
      *
-     * @var \Antistatique\Pricehubble\Pricehubble
+     * @var Pricehubble
      */
     private Pricehubble $pricehubble;
 
