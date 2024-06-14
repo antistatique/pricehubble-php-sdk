@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - run tests over multiple PHP version
+- add tests on PHP 8.3
 
 ### Security
 - update friendsofphp/php-cs-fixer (v3.4.0 => v3.21.1)

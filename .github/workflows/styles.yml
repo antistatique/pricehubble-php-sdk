@@ -1,4 +1,4 @@
-name: Static Code Anylzer & Tests
+name: Code styles
 on:
   push:
   schedule:
@@ -13,7 +13,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   tools: composer:v2
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - run: composer install --prefer-dist
             - uses: symfonycorp/security-checker-action@v3
 
@@ -26,7 +26,7 @@ jobs:
               with:
                   tools: composer:v2, phpcpd
             - name: Checkout
-              uses: actions/checkout@v2.3.4
+              uses: actions/checkout@v4
             - run: composer install --prefer-dist
             - run: ./vendor/bin/phpcpd ./ --exclude=vendor --exclude=bin --exclude=tests
 
@@ -39,7 +39,7 @@ jobs:
               with:
                   tools: composer:v2, php-cs-fixer, cs2pr
             - name: Checkout
-              uses: actions/checkout@v2.3.4
+              uses: actions/checkout@v4
             - run: composer install --prefer-dist
             - run: ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --format=checkstyle | cs2pr
 
@@ -49,30 +49,6 @@ jobs:
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - run: composer install --prefer-dist
             - run: ./vendor/bin/psalm --output-format=github
-
-    tests:
-        runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            php-versions: ['8.0', '8.1', '8.2']
-        steps:
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  tools: composer:v2
-                  php-version: ${{ matrix.php-versions }}
-            - uses: actions/checkout@v2
-            - uses: php-actions/composer@v6
-              with:
-                  php_version: ${{ matrix.php-versions }}
-                  version: 2
-            - run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
-            - name: Upload coverage results to Coveralls
-              env:
-                COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                composer global require php-coveralls/php-coveralls
-                php-coveralls --coverage_clover=build/logs/clover.xml -v
