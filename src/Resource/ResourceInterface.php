@@ -12,8 +12,8 @@ interface ResourceInterface
     /**
      * Get the API provider.
      *
-     * @return \Antistatique\Pricehubble\Pricehubble
-     *                                               The Pricehubble base API instance
+     * @return Pricehubble
+     *                     The Pricehubble base API instance
      */
     public function getPricehubble(): Pricehubble;
 }

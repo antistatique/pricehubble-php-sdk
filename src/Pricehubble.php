@@ -493,10 +493,10 @@ class Pricehubble
         ];
 
         $this->lastRequest = $parts + [
-                'method' => $http_verb,
-                'body' => '',
-                'timeout' => $timeout,
-            ];
+            'method' => $http_verb,
+            'body' => '',
+            'timeout' => $timeout,
+        ];
 
         return $this->lastResponse;
     }

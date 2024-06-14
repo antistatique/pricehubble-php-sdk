@@ -24,7 +24,7 @@ final class PricehubbleTest extends TestCase
     /**
      * The Pricehubble base API instance.
      *
-     * @var \Antistatique\Pricehubble\Pricehubble
+     * @var Pricehubble
      */
     private Pricehubble $pricehubble;
 
@@ -450,8 +450,8 @@ Content-Type: application/json';
         $this->expectExceptionMessage('401 invalid_request: The access token is missing');
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, [
-              'error_description' => 'The access token is missing',
-              'error' => 'invalid_request',
+                'error_description' => 'The access token is missing',
+                'error' => 'invalid_request',
             ], 0,
         ]);
     }
@@ -469,8 +469,8 @@ Content-Type: application/json';
         $this->expectExceptionMessage("403 'dossierId', 'simulationId' or 'buildingId' is a required property");
         $this->callPrivateMethod($pricehubble_mock, 'determineSuccess', [
             $response, [
-              'message' => "'dossierId', 'simulationId' or 'buildingId' is a required property",
-          ], 0,
+                'message' => "'dossierId', 'simulationId' or 'buildingId' is a required property",
+            ], 0,
         ]);
     }
 

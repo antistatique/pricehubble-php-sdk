@@ -12,15 +12,15 @@ abstract class AbstractResource implements ResourceInterface
     /**
      * The Pricehubble base API instance.
      *
-     * @var \Antistatique\Pricehubble\Pricehubble
+     * @var Pricehubble
      */
     private Pricehubble $pricehubble;
 
     /**
      * Construct a new AbstractApi object.
      *
-     * @param \Antistatique\Pricehubble\Pricehubble $pricehubble
-     *                                                           The Pricehubble base API class
+     * @param Pricehubble $pricehubble
+     *                                 The Pricehubble base API class
      */
     public function __construct(Pricehubble $pricehubble)
     {
@@ -30,7 +30,7 @@ abstract class AbstractResource implements ResourceInterface
     /**
      * Set the API provider.
      *
-     * @param \Antistatique\Pricehubble\Pricehubble $pricehubble the Pricehubble base API instance
+     * @param Pricehubble $pricehubble the Pricehubble base API instance
      *
      * @return $this
      */
