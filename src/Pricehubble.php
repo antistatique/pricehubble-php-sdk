@@ -90,11 +90,19 @@ class Pricehubble
      */
     public function __construct()
     {
-        if (!function_exists('curl_init') || !function_exists('curl_setopt')) {
+        if (!$this->isCurlAvailable()) {
             throw new \RuntimeException("cURL support is required, but can't be found.");
         }
 
         $this->lastResponse = ['headers' => null, 'body' => null];
+    }
+
+    /**
+     * Check if cURL is available.
+     */
+    public function isCurlAvailable(): bool
+    {
+        return function_exists('curl_init') || function_exists('curl_setopt');
     }
 
     /**

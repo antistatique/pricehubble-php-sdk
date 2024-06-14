@@ -649,6 +649,46 @@ Content-Type: application/json';
     }
 
     /**
+     * @covers ::makeRequest
+     */
+    public function testMakeRequestArgsLanguage(): void
+    {
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+          ->onlyMethods(['getApiToken', 'prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+          ->getMock();
+
+        $pricehubble_mock->expects($this->once())
+          ->method('prepareStateForRequest')
+          ->with('get', 'https://example.org', 10);
+
+        $pricehubble_mock->expects($this->exactly(2))
+          ->method('getApiToken')
+          ->willReturn('api-token');
+
+        $pricehubble_mock->expects($this->once())
+          ->method('setResponseState')
+          ->with($this->isType('array'), $this->isType('string'), $this->anything())
+        ;
+
+        $pricehubble_mock->expects($this->once())
+          ->method('formatResponse')
+          ->with($this->isType('array'))
+          ->willReturn(['foo' => 'bar']);
+
+        $pricehubble_mock->expects($this->once())
+          ->method('determineSuccess')
+          ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+          ->willReturn(true);
+
+        $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
+        $curl_exec_mock->expects($this->once())->willReturn('body');
+
+        $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
+            'get', 'https://example.org', ['language' => 'fr'],
+        ]);
+    }
+
+    /**
      * Provider of :testMakeRequestByVerbs.
      *
      * @return iterable Variation of HTTP Verbs
