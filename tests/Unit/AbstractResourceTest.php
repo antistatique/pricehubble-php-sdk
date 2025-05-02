@@ -22,7 +22,7 @@ final class AbstractResourceTest extends TestCase
     public function testConstructorArgumentCount(): void
     {
         $this->expectException(\ArgumentCountError::class);
-        new class() extends AbstractResource {};
+        new class extends AbstractResource {};
     }
 
     /**
