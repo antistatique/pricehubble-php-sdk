@@ -34,14 +34,6 @@ Automatically fix coding standards
 ./vendor/bin/php-cs-fixer fix -v --using-cache=no
 ```
 
-### Improve global code quality using PHPCPD (Code duplication)
-
-Copy/Paste Detector
-
-```bash
-./vendor/bin/phpcpd ./web/modules/custom
-```
-
 ### Enforce code standards with git hooks
 
 Maintaining code quality by adding the custom post-commit hook to yours.
