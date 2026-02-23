@@ -488,11 +488,11 @@ Content-Type: application/json';
 
         $pricehubble_mock->expects($this->once())
             ->method('setResponseState')
-            ->with($this->isType('array'), $this->isType('string'), $this->anything());
+            ->with($this->isArray(), $this->isString(), $this->anything());
 
         $pricehubble_mock->expects($this->once())
             ->method('formatResponse')
-            ->with($this->isType('array'));
+            ->with($this->isArray());
 
         $pricehubble_mock->expects($this->never())
             ->method('determineSuccess');
@@ -521,17 +521,17 @@ Content-Type: application/json';
 
         $pricehubble_mock->expects($this->once())
             ->method('setResponseState')
-            ->with($this->isType('array'), $this->isType('string'), $this->anything())
+            ->with($this->isArray(), $this->isString(), $this->anything())
         ;
 
         $pricehubble_mock->expects($this->once())
             ->method('formatResponse')
-            ->with($this->isType('array'))
+            ->with($this->isArray())
             ->willReturn(['foo' => 'bar']);
 
         $pricehubble_mock->expects($this->once())
             ->method('determineSuccess')
-            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+            ->with($this->isArray(), $this->isArray(), $this->isInt())
             ->willReturn(true);
 
         $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
@@ -559,17 +559,17 @@ Content-Type: application/json';
 
         $pricehubble_mock->expects($this->once())
             ->method('setResponseState')
-            ->with($this->isType('array'), $this->isType('string'), $this->anything())
+            ->with($this->isArray(), $this->isString(), $this->anything())
         ;
 
         $pricehubble_mock->expects($this->once())
             ->method('formatResponse')
-            ->with($this->isType('array'))
+            ->with($this->isArray())
             ->willReturn(['foo' => 'bar']);
 
         $pricehubble_mock->expects($this->once())
             ->method('determineSuccess')
-            ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+            ->with($this->isArray(), $this->isArray(), $this->isInt())
             ->willReturn(true);
 
         $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');
@@ -596,17 +596,17 @@ Content-Type: application/json';
 
         $pricehubble_mock->expects($this->once())
           ->method('setResponseState')
-          ->with($this->isType('array'), $this->isType('string'), $this->anything())
+          ->with($this->isArray(), $this->isString(), $this->anything())
         ;
 
         $pricehubble_mock->expects($this->once())
           ->method('formatResponse')
-          ->with($this->isType('array'))
+          ->with($this->isArray())
           ->willReturn(['foo' => 'bar']);
 
         $pricehubble_mock->expects($this->once())
           ->method('determineSuccess')
-          ->with($this->isType('array'), $this->isType('array'), $this->isType('integer'))
+          ->with($this->isArray(), $this->isArray(), $this->isInt())
           ->willReturn(true);
 
         $curl_exec_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_exec');

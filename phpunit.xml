@@ -3,7 +3,12 @@
          colors="true"
          failOnRisky="true"
          failOnWarning="true"
-         stopOnFailure="false">
+         stopOnFailure="false"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnPhpunitNotices="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
     <testsuites>
         <testsuite name="Pricehubble Test Suite">
             <directory suffix=".php">./tests/</directory>

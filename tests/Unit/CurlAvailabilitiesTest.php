@@ -30,7 +30,7 @@ final class CurlAvailabilitiesTest extends TestCase
 
     public function testcurlNotAvailable(): void
     {
-        $pricehubbleMock = $this->createMock(Pricehubble::class);
+        $pricehubbleMock = $this->createStub(Pricehubble::class);
         $pricehubbleMock->method('isCurlAvailable')->willReturn(false);
 
         $this->expectException(\RuntimeException::class);
@@ -40,14 +40,10 @@ final class CurlAvailabilitiesTest extends TestCase
         $pricehubbleMock->method('isCurlAvailable')->willReturn(true);
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::isCurlAvailable
-     */
     #[DoesNotPerformAssertions]
     public function testCurlAvailable(): void
     {
-        $pricehubbleMock = $this->createMock(Pricehubble::class);
+        $pricehubbleMock = $this->createStub(Pricehubble::class);
         $pricehubbleMock->method('isCurlAvailable')->willReturn(true);
         $pricehubbleMock->__construct();
     }
