@@ -4,33 +4,30 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 
 use Antistatique\Pricehubble\Pricehubble;
 use phpmock\phpunit\PHPMock;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Antistatique\Pricehubble\Pricehubble
- *
- * @group pricehubble
- * @group pricehubble_unit
- *
  * @internal
  */
+#[CoversClass(Pricehubble::class)]
+#[CoversMethod(Pricehubble::class, '__construct')]
+#[CoversMethod(Pricehubble::class, 'isCurlAvailable')]
+#[Group('pricehubble')]
+#[Group('pricehubble_unit')]
 final class CurlAvailabilitiesTest extends TestCase
 {
     use PHPMock;
 
-    /**
-     * @covers ::isCurlAvailable
-     */
     public function testIsCurlAvailable(): void
     {
         $pricehubble = new Pricehubble();
         $this->assertTrue($pricehubble->isCurlAvailable());
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::isCurlAvailable
-     */
     public function testcurlNotAvailable(): void
     {
         $pricehubbleMock = $this->createMock(Pricehubble::class);
@@ -46,9 +43,8 @@ final class CurlAvailabilitiesTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::isCurlAvailable
-     *
-     * @doesNotPerformAssertions
      */
+    #[DoesNotPerformAssertions]
     public function testCurlAvailable(): void
     {
         $pricehubbleMock = $this->createMock(Pricehubble::class);

@@ -6,16 +6,34 @@ use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
 use Antistatique\Pricehubble\Tests\Traits\TestPrivateTrait;
 use phpmock\phpunit\PHPMock;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Antistatique\Pricehubble\Pricehubble
- *
- * @group pricehubble
- * @group pricehubble_unit
- *
  * @internal
  */
+#[CoversClass(Pricehubble::class)]
+#[CoversMethod(Pricehubble::class, '__construct')]
+#[CoversMethod(Pricehubble::class, '__call')]
+#[CoversMethod(Pricehubble::class, 'authenticate')]
+#[CoversMethod(Pricehubble::class, 'determineSuccess')]
+#[CoversMethod(Pricehubble::class, 'findHttpStatus')]
+#[CoversMethod(Pricehubble::class, 'formatResponse')]
+#[CoversMethod(Pricehubble::class, 'getApiToken')]
+#[CoversMethod(Pricehubble::class, 'getHeadersAsArray')]
+#[CoversMethod(Pricehubble::class, 'getLastError')]
+#[CoversMethod(Pricehubble::class, 'getLastRequest')]
+#[CoversMethod(Pricehubble::class, 'getLastResponse')]
+#[CoversMethod(Pricehubble::class, 'makeRequest')]
+#[CoversMethod(Pricehubble::class, 'prepareStateForRequest')]
+#[CoversMethod(Pricehubble::class, 'setApiToken')]
+#[CoversMethod(Pricehubble::class, 'setResponseState')]
+#[CoversMethod(Pricehubble::class, 'success')]
+#[Group('pricehubble')]
+#[Group('pricehubble_unit')]
 final class PricehubbleTest extends TestCase
 {
     use TestPrivateTrait;
@@ -38,16 +56,6 @@ final class PricehubbleTest extends TestCase
         $this->pricehubble = new Pricehubble();
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::success
-     * @covers ::getLastError
-     * @covers ::getLastResponse
-     * @covers ::getLastRequest
-     * @covers ::setResponseState
-     * @covers ::getHeadersAsArray
-     * @covers ::prepareStateForRequest
-     */
     public function testInstantiation(): void
     {
         $pricehubble = new Pricehubble();
@@ -60,10 +68,6 @@ final class PricehubbleTest extends TestCase
         self::assertSame([], $pricehubble->getLastRequest());
     }
 
-    /**
-     * @covers ::formatResponse
-     * @covers ::getLastResponse
-     */
     public function testFormatResponseJson(): void
     {
         $response['body'] = '{"access_token": "74126eab0a9048d993bda4b1b55ae074", "expires_in": 43200}';
@@ -77,9 +81,6 @@ final class PricehubbleTest extends TestCase
         ], $result);
     }
 
-    /**
-     * @covers ::formatResponse
-     */
     public function testFormatResponseEmptyBody()
     {
         $result = $this->callPrivateMethod($this->pricehubble, 'formatResponse', [[]]);
@@ -87,18 +88,12 @@ final class PricehubbleTest extends TestCase
         self::assertEmpty($this->pricehubble->getLastResponse());
     }
 
-    /**
-     * @covers ::__call
-     */
     public function testMagicCallReturnsExpected(): void
     {
         $valuation = $this->pricehubble->valuation();
         self::assertInstanceOf(AbstractResource::class, $valuation);
     }
 
-    /**
-     * @covers ::__call
-     */
     public function testMagicCallReturnsException(): void
     {
         $this->expectException(\BadMethodCallException::class);
@@ -106,10 +101,6 @@ final class PricehubbleTest extends TestCase
         $this->pricehubble->foo();
     }
 
-    /**
-     * @covers ::setApiToken
-     * @covers ::getApiToken
-     */
     public function testSetApiToken(): void
     {
         self::assertEmpty($this->pricehubble->getApiToken());
@@ -117,15 +108,12 @@ final class PricehubbleTest extends TestCase
         self::assertEquals('api-token', $this->pricehubble->getApiToken());
     }
 
-    /**
-     * @covers ::authenticate
-     */
     public function testAuthenticateOnSuccessSetApiToken(): void
     {
         $mock = $this->getMockBuilder(Pricehubble::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['makeRequest', 'setApiToken'])
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $mock->expects(self::once())
             ->method('makeRequest')
@@ -141,15 +129,12 @@ final class PricehubbleTest extends TestCase
         $mock->authenticate('user', 'password');
     }
 
-    /**
-     * @covers ::authenticate
-     */
     public function testAuthenticateOnError(): void
     {
         $mock = $this->getMockBuilder(Pricehubble::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['makeRequest', 'setApiToken'])
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $mock->expects(self::once())
             ->method('makeRequest')
@@ -165,9 +150,6 @@ final class PricehubbleTest extends TestCase
         $mock->authenticate('user', 'password');
     }
 
-    /**
-     * @covers ::setResponseState
-     */
     public function testSetResponseState()
     {
         $response = json_decode(file_get_contents(__DIR__.'/../responses/partials/complete.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -198,9 +180,6 @@ final class PricehubbleTest extends TestCase
 ', $response['body']);
     }
 
-    /**
-     * @covers ::setResponseState
-     */
     public function testSetResponseStateError()
     {
         $curl_error_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_error');
@@ -214,9 +193,6 @@ final class PricehubbleTest extends TestCase
         ]);
     }
 
-    /**
-     * @covers ::getHeadersAsArray
-     */
     public function testGetHeadersAsArray()
     {
         $headers_string = '
@@ -241,11 +217,7 @@ Content-Type: application/json';
         ], $headers);
     }
 
-    /**
-     * @covers ::findHttpStatus
-     *
-     * @dataProvider providerHttpStatus
-     */
+    #[DataProvider('providerHttpStatus')]
     public function testFindHttpStatus($response, $formatted_response, $expected_code)
     {
         $code = $this->callPrivateMethod($this->pricehubble, 'findHttpStatus', [
@@ -261,7 +233,7 @@ Content-Type: application/json';
      * @return array
      *               Variation of HTTP Status response
      */
-    public function providerHttpStatus()
+    public static function providerHttpStatus()
     {
         return [
             [
@@ -307,11 +279,7 @@ Content-Type: application/json';
         ];
     }
 
-    /**
-     * @covers ::determineSuccess
-     *
-     * @dataProvider providerStatus200
-     */
+    #[DataProvider('providerStatus200')]
     public function testDetermineSuccessStatus200($code)
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -336,7 +304,7 @@ Content-Type: application/json';
      * @return array
      *               Variation of HTTP Status response
      */
-    public function providerStatus200()
+    public static function providerStatus200()
     {
         return [
             [
@@ -351,9 +319,6 @@ Content-Type: application/json';
         ];
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccessErrorMessage()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -373,9 +338,6 @@ Content-Type: application/json';
         self::assertEquals('ERROR 400: Unsupported country code.', $pricehubble_mock->getLastError());
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccessErrorMessageDescription()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -395,9 +357,6 @@ Content-Type: application/json';
         self::assertEquals('ERROR 401: invalid_token: The access token is invalid or has expired.', $pricehubble_mock->getLastError());
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccessTimeout()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -415,9 +374,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccessUnknown()
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -437,9 +393,6 @@ Content-Type: application/json';
         self::assertEquals('Unknown error, call getLastResponse() to find out what happened.', $pricehubble_mock->getLastError());
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccess401MissingToken()
     {
         $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/401-missing-token.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -456,9 +409,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccess403MissingProperty()
     {
         $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/403-missing-property.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -474,9 +424,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::determineSuccess
-     */
     public function testDetermineSuccess403Forbidden()
     {
         $response = json_decode(file_get_contents(__DIR__.'/../responses/exceptions/403-forbidden.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -491,8 +438,6 @@ Content-Type: application/json';
     }
 
     /**
-     * @covers ::determineSuccess
-     *
      * Cover the scenario of inconsistency on Pricehubble API with nested message.
      */
     public function testDetermineSuccess403ForbiddenNested()
@@ -508,9 +453,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::prepareStateForRequest
-     */
     public function testPrepareStateForRequest()
     {
         $this->callPrivateMethod($this->pricehubble, 'prepareStateForRequest', [
@@ -534,9 +476,6 @@ Content-Type: application/json';
         ], $this->pricehubble->getLastRequest());
     }
 
-    /**
-     * @covers ::makeRequest
-     */
     public function testMakeRequestMalformedResponse(): void
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -566,9 +505,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::makeRequest
-     */
     public function testMakeRequestGet(): void
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -606,11 +542,7 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::makeRequest
-     *
-     * @dataProvider providerHttpVerbs
-     */
+    #[DataProvider('providerHttpVerbs')]
     public function testMakeRequestByVerbs(string $verb): void
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -648,9 +580,6 @@ Content-Type: application/json';
         ]);
     }
 
-    /**
-     * @covers ::makeRequest
-     */
     public function testMakeRequestArgsLanguage(): void
     {
         $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
@@ -693,7 +622,7 @@ Content-Type: application/json';
      *
      * @return iterable Variation of HTTP Verbs
      */
-    public function providerHttpVerbs(): iterable
+    public static function providerHttpVerbs(): iterable
     {
         yield ['post'];
         yield ['delete'];

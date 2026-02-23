@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false"
          colors="true"
          failOnRisky="true"
          failOnWarning="true"
@@ -8,17 +7,20 @@
     <testsuites>
         <testsuite name="Pricehubble Test Suite">
             <directory suffix=".php">./tests/</directory>
+            <exclude>./tests/Traits/</exclude>
         </testsuite>
     </testsuites>
-    <logging>
-        <log type="coverage-clover" target="./build/logs/clover.xml"/>
-        <log type="coverage-html" target="./build/logs/coverage-html"/>
-    </logging>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <source>
+        <include>
             <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </source>
+    <coverage>
+        <report>
+            <clover outputFile="./build/logs/clover.xml"/>
+            <html outputDirectory="./build/logs/coverage-html"/>
+        </report>
+    </coverage>
     <php>
         <!-- Temporarily preventing https://github.com/xdebug/xdebug/pull/699 -->
         <const name="XDEBUG_CC_UNUSED"  value=""/>

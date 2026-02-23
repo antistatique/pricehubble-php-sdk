@@ -4,19 +4,19 @@ namespace Antistatique\Pricehubble\Tests\Unit\Resource;
 
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
+use Antistatique\Pricehubble\Resource\PointsOfInterest;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Antistatique\Pricehubble\Resource\PointsOfInterest
- *
- * @group pricehubble
- * @group pricehubble_unit
- */
+#[CoversClass(PointsOfInterest::class)]
+#[CoversMethod(Pricehubble::class, '__call')]
+#[CoversMethod(PointsOfInterest::class, 'gather')]
+#[Group('pricehubble')]
+#[Group('pricehubble_unit')]
 class PointsOfInterestTest extends TestCase
 {
-    /**
-     * @covers \Antistatique\Pricehubble\Pricehubble::__call
-     */
     public function testCallReturnsExpected(): void
     {
         $pricehubble = new Pricehubble();
@@ -24,9 +24,6 @@ class PointsOfInterestTest extends TestCase
         self::assertInstanceOf(AbstractResource::class, $resource);
     }
 
-    /**
-     * @covers ::gather
-     */
     public function testGatherReturnsExpected(): void
     {
         $response = json_decode(file_get_contents(__DIR__.'/../../responses/pois.json'), true, 512, JSON_THROW_ON_ERROR);
