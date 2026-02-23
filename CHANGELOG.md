@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - removed support PHP 8.0
+- removed support PHP 8.1
 
 ## [1.0.4] - 2025-05-02
 ### Added

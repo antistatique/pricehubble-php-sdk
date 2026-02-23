@@ -3,7 +3,7 @@
   "description": "Super-simple, minimum abstraction Pricehubble API v1.x wrapper, in PHP",
   "license": "MIT",
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.2",
     "ext-curl": "*",
     "ext-json": "*"
   },
