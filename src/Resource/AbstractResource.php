@@ -46,6 +46,7 @@ abstract class AbstractResource implements ResourceInterface
     /**
      * {@inheritdoc}
      */
+    #[\Override]
     public function getPricehubble(): Pricehubble
     {
         return $this->pricehubble;

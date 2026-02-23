@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update PHP versions to run on PHP 8.5
 - upgrade vimeo/psalm (4.30.0 => 5.26.1)
 - update symfony/dotenv (v5.4.48 => v7.4.0)
+- upgrade vimeo/psalm (5.26.1 => 6.15.1)
 
 ### Removed
 - removed support PHP 8.0
