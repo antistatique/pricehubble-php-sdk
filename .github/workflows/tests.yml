@@ -22,6 +22,8 @@ jobs:
           with:
               php_version: ${{ matrix.php-versions }}
               version: 2
+              args: --ignore-platform-reqs
+
         - run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
         - name: Upload coverage results to Coveralls
           env:

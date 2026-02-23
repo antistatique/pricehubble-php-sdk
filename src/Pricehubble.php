@@ -12,6 +12,8 @@ use Antistatique\Pricehubble\Resource\ResourceInterface;
  *
  * @see self::authenticate to obtain one.
  *
+ * @psalm-api
+ *
  * @method \Antistatique\Pricehubble\Resource\Valuation        valuation()
  * @method \Antistatique\Pricehubble\Resource\PointsOfInterest pointsOfInterest()
  */
@@ -107,6 +109,8 @@ class Pricehubble
 
     /**
      * Proxies all Pricehubble API Class and Methods.
+     *
+     * @psalm-suppress PossiblyUnusedParam $arguments is required by PHP's __call signature
      */
     public function __call(string $name, array $arguments): ResourceInterface
     {

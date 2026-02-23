@@ -6,6 +6,8 @@ use Antistatique\Pricehubble\Pricehubble;
 
 /**
  * Pricehubble base API class.
+ *
+ * @psalm-api
  */
 abstract class AbstractResource implements ResourceInterface
 {
