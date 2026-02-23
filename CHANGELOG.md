@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Security
+- update PHP versions to run on PHP 8.5
+- update symfony/dotenv (v5.4.48 => v7.4.0)
+- upgrade vimeo/psalm (4.30.0 = => 6.15.1)
+- upgrade phpunit/php-code-coverage (9.2.32 => 12.5.3)
+- upgrade phpunit/phpunit (9.6.34 => 12.5.14)
+
+### Removed
+- removed support PHP 8.0
+- removed support PHP 8.1
+- removed support PHP 8.2
+- remove phpcpd as abandoned
 
 ## [1.0.4] - 2025-05-02
 ### Added

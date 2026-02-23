@@ -4,30 +4,28 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Antistatique\Pricehubble\Resource\AbstractResource
- *
- * @group pricehubble
- * @group pricehubble_unit
- *
  * @internal
  */
+#[CoversClass(AbstractResource::class)]
+#[CoversMethod(AbstractResource::class, '__construct')]
+#[CoversMethod(AbstractResource::class, 'setPricehubble')]
+#[CoversMethod(AbstractResource::class, 'getPricehubble')]
+#[Group('pricehubble')]
+#[Group('pricehubble_unit')]
 final class AbstractResourceTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testConstructorArgumentCount(): void
     {
         $this->expectException(\ArgumentCountError::class);
         new class extends AbstractResource {};
     }
 
-    /**
-     * @covers ::__construct
-     */
     public function testConstructor(): void
     {
         $pricehubble = new Pricehubble();
@@ -35,7 +33,7 @@ final class AbstractResourceTest extends TestCase
         $mock = $this->getMockBuilder(AbstractResource::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['setPricehubble'])
-            ->getMockForAbstractClass();
+            ->getMock();
 
         // Set expectations for constructor calls.
         $mock->expects($this->once())
@@ -48,26 +46,16 @@ final class AbstractResourceTest extends TestCase
         $constructor->invoke($mock, $pricehubble);
     }
 
-    /**
-     * @covers ::setPricehubble
-     */
     public function testSetPricehubbleReturnsExpected(): void
     {
         $pricehubble = new Pricehubble();
+        $testResource = new class(new Pricehubble()) extends AbstractResource {};
 
-        // Get mock, without the constructor being called
-        $mock = $this->getMockBuilder(AbstractResource::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
-
-        $mock->setPricehubble($pricehubble);
-        $result = $mock->getPricehubble();
+        $testResource->setPricehubble($pricehubble);
+        $result = $testResource->getPricehubble();
         self::assertSame($result, $pricehubble);
     }
 
-    /**
-     * @covers ::getPricehubble
-     */
     public function testGetPricehubbleReturnsExpected(): void
     {
         $pricehubble = new Pricehubble();

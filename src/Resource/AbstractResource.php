@@ -6,6 +6,8 @@ use Antistatique\Pricehubble\Pricehubble;
 
 /**
  * Pricehubble base API class.
+ *
+ * @psalm-api
  */
 abstract class AbstractResource implements ResourceInterface
 {
@@ -44,6 +46,7 @@ abstract class AbstractResource implements ResourceInterface
     /**
      * {@inheritdoc}
      */
+    #[\Override]
     public function getPricehubble(): Pricehubble
     {
         return $this->pricehubble;

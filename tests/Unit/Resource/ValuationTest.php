@@ -4,19 +4,20 @@ namespace Antistatique\Pricehubble\Tests\Unit\Resource;
 
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
+use Antistatique\Pricehubble\Resource\Valuation;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Antistatique\Pricehubble\Resource\Valuation
- *
- * @group pricehubble
- * @group pricehubble_unit
- */
+#[CoversClass(Valuation::class)]
+#[CoversMethod(Pricehubble::class, '__call')]
+#[CoversMethod(Valuation::class, 'full')]
+#[CoversMethod(Valuation::class, 'light')]
+#[Group('pricehubble')]
+#[Group('pricehubble_unit')]
 class ValuationTest extends TestCase
 {
-    /**
-     * @covers \Antistatique\Pricehubble\Pricehubble::__call
-     */
     public function testCallReturnsExpected(): void
     {
         $pricehubble = new Pricehubble();
@@ -24,9 +25,6 @@ class ValuationTest extends TestCase
         self::assertInstanceOf(AbstractResource::class, $resource);
     }
 
-    /**
-     * @covers ::full
-     */
     public function testFullReturnsExpected(): void
     {
         $response = json_decode(file_get_contents(__DIR__.'/../../responses/valuation-full.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -74,9 +72,6 @@ class ValuationTest extends TestCase
         $pricehubble_mock->valuation()->full($fullParams);
     }
 
-    /**
-     * @covers ::light
-     */
     public function testLightReturnsExpected(): void
     {
         $response = json_decode(file_get_contents(__DIR__.'/../../responses/valuation-light.json'), true, 512, JSON_THROW_ON_ERROR);

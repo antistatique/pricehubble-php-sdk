@@ -7,6 +7,8 @@ use Antistatique\Pricehubble\Pricehubble;
 /**
  * The Pricehubble Valuation API class.
  *
+ * @psalm-api
+ *
  * @see https://docs.pricehubble.com/international/valuation/
  */
 final class Valuation extends AbstractResource

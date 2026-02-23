@@ -16,6 +16,22 @@ There are a small number of PHPUnit unit tests. Unit testing against an API is o
 
 ## Developing
 
+## 🧪 Running tests
+
+Run the test suite without code coverage (no Xdebug required):
+
+```bash
+./vendor/bin/phpunit --no-coverage
+```
+
+Run the test suite with code coverage (requires [Xdebug](https://xdebug.org/) or [PCOV](https://github.com/krakjoe/pcov)):
+
+```bash
+XDEBUG_MODE=coverage ./vendor/bin/phpunit
+```
+
+> **Note:** Running `./vendor/bin/phpunit` without `--no-coverage` and without a coverage driver will fail with _"No code coverage driver available"_. Use `--no-coverage` for day-to-day local development.
+
 ## 🚔 Check Symfony 4 coding standards & best practices
 
 You need to run composer before using [FriendsOfPHP/PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
@@ -32,14 +48,6 @@ Automatically fix coding standards
 
 ```bash
 ./vendor/bin/php-cs-fixer fix -v --using-cache=no
-```
-
-### Improve global code quality using PHPCPD (Code duplication)
-
-Copy/Paste Detector
-
-```bash
-./vendor/bin/phpcpd ./web/modules/custom
 ```
 
 ### Enforce code standards with git hooks

@@ -13,3 +13,4 @@ composer.lock
 
 # Ignore log & cache files
 .php-cs-fixer.cache
+.phpunit.result.cache

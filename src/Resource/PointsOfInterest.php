@@ -7,6 +7,8 @@ use Antistatique\Pricehubble\Pricehubble;
 /**
  * The Pricehubble Points of Interest API class.
  *
+ * @psalm-api
+ *
  * @see https://docs.pricehubble.com/international/pois/
  */
 final class PointsOfInterest extends AbstractResource
