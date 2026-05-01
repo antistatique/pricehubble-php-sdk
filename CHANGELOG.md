@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update(phpunit): phpunit/phpunit (12.5.14 => 12.5.24)
 - update(linter): vimeo/psalm (6.15.1 => 6.16.1)
 - update(linter): friendsofphp/php-cs-fixer (v3.94.2 => v3.95.1)
+- test(update): upgrade phpunit/phpunit (12.5.24 => 13.1.8)
+
+### Removed
+- build(php): removed support PHP 8.3
 
 ## [1.1.0] - 2026-02-23
 ### Security

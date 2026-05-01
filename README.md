@@ -9,7 +9,7 @@ I hate complex wrappers. This lets you get from the Pricehubble API docs to the 
 [![Coverage Status](https://coveralls.io/repos/github/antistatique/pricehubble-php-sdk/badge.svg)](https://coveralls.io/github/antistatique/pricehubble-php-sdk)
 [![Packagist](https://img.shields.io/packagist/dt/antistatique/pricehubble-php-sdk.svg?maxAge=2592000)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 [![License](https://poser.pugx.org/antistatique/pricehubble-php-sdk/license)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
-[![PHP Versions Supported](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
+[![PHP Versions Supported](https://img.shields.io/badge/php-%3E%3D%208.4-8892BF.svg)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 
 Getting started
 ------------
