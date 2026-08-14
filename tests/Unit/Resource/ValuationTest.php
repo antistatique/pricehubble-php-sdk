@@ -66,7 +66,7 @@ class ValuationTest extends TestCase
 
         $pricehubble_mock->expects($this->once())
             ->method('makeRequest')
-            ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value', $fullParams)
+            ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value', $fullParams, Pricehubble::TIMEOUT)
             ->willReturn($response);
 
         $pricehubble_mock->valuation()->full($fullParams);
@@ -102,7 +102,7 @@ class ValuationTest extends TestCase
 
         $pricehubble_mock->expects($this->once())
             ->method('makeRequest')
-            ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value_light', $lightParams)
+            ->with('post', 'https://api.pricehubble.com/api/v1/valuation/property_value_light', $lightParams, Pricehubble::TIMEOUT)
             ->willReturn($response);
 
         $pricehubble_mock->valuation()->light($lightParams);

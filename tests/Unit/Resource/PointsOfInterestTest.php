@@ -28,15 +28,7 @@ class PointsOfInterestTest extends TestCase
     {
         $response = json_decode(file_get_contents(__DIR__.'/../../responses/pois.json'), true, 512, JSON_THROW_ON_ERROR);
 
-        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
-            ->onlyMethods(['makeRequest'])
-            ->getMock();
-
-        $pricehubble_mock->expects($this->once())
-            ->method('makeRequest')
-            ->willReturn($response);
-
-        $pointOfInterests = $pricehubble_mock->pointsOfInterest()->gather([
+        $gatherParams = [
             'coordinates' => [
                 // Rue de Genève 90B, 1004 Lausanne.
                 'latitude' => 46.525469979127884,
@@ -54,7 +46,18 @@ class PointsOfInterestTest extends TestCase
             'offset' => 0,
             'limit' => 10,
             'countryCode' => 'CH',
-        ]);
+        ];
+
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+            ->onlyMethods(['makeRequest'])
+            ->getMock();
+
+        $pricehubble_mock->expects($this->once())
+            ->method('makeRequest')
+            ->with('post', 'https://api.pricehubble.com/api/v1/pois', $gatherParams, Pricehubble::TIMEOUT)
+            ->willReturn($response);
+
+        $pointOfInterests = $pricehubble_mock->pointsOfInterest()->gather($gatherParams);
 
         self::assertEquals([
             'totalItems' => 124,

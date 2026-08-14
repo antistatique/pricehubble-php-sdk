@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(php85): remove deprecated calls and fail the suite on new ones
 - fix(curl): type cURL handles as CurlHandle and check curl_init failure
 
+### Added
+- test(resource): assert verb, URL and timeout passed to makeRequest
+
 ## [1.2.0] - 2026-05-01
 ### Security
 - update(phpunit): phpunit/phpunit (12.5.14 => 12.5.24)
