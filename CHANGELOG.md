@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.2.1] - 2026-08-14
 ### Removed
 - chore(deps): drop unused phpmd/phpmd dev dependency
 
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(curl): type cURL handles as CurlHandle and check curl_init failure
 - fix(http): reject malformed URLs instead of failing with a TypeError
 - fix(auth): send the Authorization header for a falsy-but-valid token
-- fix(api): tighten getApiToken/getLastError return types and unmask __call errors
+- fix(api): tighten getApiToken/getLastError return types and unmask \__call errors
 
 ### Added
 - test(resource): assert verb, URL and timeout passed to makeRequest
@@ -89,7 +91,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - remove sensiolabs/security-checker in favor of Github Actions security-checker
 
-[Unreleased]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/antistatique/pricehubble-php-sdk/compare/1.0.3...1.0.4
