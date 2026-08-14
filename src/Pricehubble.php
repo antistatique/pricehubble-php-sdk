@@ -464,7 +464,7 @@ class Pricehubble
         $response = $this->setResponseState($response, $response_content, $curl);
         $formattedResponse = $this->formatResponse($response);
 
-        curl_close($curl);
+        unset($curl);
 
         if (!$formattedResponse) {
             return false;
