@@ -4,12 +4,15 @@ namespace Antistatique\Pricehubble\Tests\Unit;
 
 use Antistatique\Pricehubble\Pricehubble;
 use Antistatique\Pricehubble\Resource\AbstractResource;
+use Antistatique\Pricehubble\Resource\ResourceInterface;
 use Antistatique\Pricehubble\Tests\Traits\TestPrivateTrait;
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -689,5 +692,57 @@ Content-Type: application/json';
         ]);
 
         return $captured;
+    }
+
+    /**
+     * class_exists() proves the class is there, not that it is a resource.
+     */
+    public function testMagicCallRejectsClassThatIsNotAResource(): void
+    {
+        $fqn = 'Antistatique\\Pricehubble\\Resource\\NotAResource';
+
+        if (!class_exists($fqn, false)) {
+            eval('namespace Antistatique\\Pricehubble\\Resource; class NotAResource {}');
+        }
+
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('API class NotAResource is not a '.ResourceInterface::class);
+
+        $this->pricehubble->notAResource();
+    }
+
+    /**
+     * parse_url() returns FALSE for a malformed URL; feeding that into the
+     * request state used to fail with "Unsupported operand types: bool + array".
+     */
+    public function testMakeRequestThrowsOnMalformedUrl(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Malformed URL: http://');
+
+        $this->callPrivateMethod($this->pricehubble, 'makeRequest', [
+            'get', 'http://',
+        ]);
+    }
+
+    /**
+     * curl_init() returns FALSE when a session cannot be allocated.
+     *
+     * php-mock cannot intercept a call site that an earlier test in this
+     * process has already executed, so this runs in its own process.
+     */
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function testMakeRequestThrowsWhenCurlCannotBeInitialised(): void
+    {
+        $curl_init_mock = $this->getFunctionMock('Antistatique\\Pricehubble', 'curl_init');
+        $curl_init_mock->expects($this->once())->willReturn(false);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to initialise a cURL session.');
+
+        $this->callPrivateMethod($this->pricehubble, 'makeRequest', [
+            'get', 'https://example.org',
+        ]);
     }
 }
