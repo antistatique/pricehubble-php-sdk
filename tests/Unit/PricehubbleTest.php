@@ -160,8 +160,11 @@ final class PricehubbleTest extends TestCase
         self::assertEmpty($response['httpHeaders']);
         self::assertEmpty($response['body']);
 
+        $curl = curl_init();
+        self::assertInstanceOf(\CurlHandle::class, $curl);
+
         $response = $this->callPrivateMethod($this->pricehubble, 'setResponseState', [
-            $response, $response_content, null,
+            $response, $response_content, $curl,
         ]);
 
         self::assertArrayHasKey('httpHeaders', $response);
@@ -186,10 +189,13 @@ final class PricehubbleTest extends TestCase
         $curl_error_mock->expects($this->once())
             ->willReturn('Something went wrong.');
 
+        $curl = curl_init();
+        self::assertInstanceOf(\CurlHandle::class, $curl);
+
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Something went wrong.');
         $this->callPrivateMethod($this->pricehubble, 'setResponseState', [
-            [], false, null,
+            [], false, $curl,
         ]);
     }
 

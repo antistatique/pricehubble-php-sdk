@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(ci): run workflows on pull_request so fork contributions get CI
 - fix(dependabot): remove config that silently disabled all version updates
 - fix(php85): remove deprecated calls and fail the suite on new ones
+- fix(curl): type cURL handles as CurlHandle and check curl_init failure
 
 ## [1.2.0] - 2026-05-01
 ### Security

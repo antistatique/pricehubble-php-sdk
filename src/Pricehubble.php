@@ -228,14 +228,14 @@ class Pricehubble
     /**
      * Encode the data and attach it to the request.
      *
-     * @param resource $curl
-     *                       cURL session handle, used by reference
-     * @param array    $data
-     *                       Assoc array of data to attach
+     * @param \CurlHandle $curl
+     *                          cURL session handle
+     * @param array       $data
+     *                          Assoc array of data to attach
      *
      * @throws \JsonException
      */
-    protected function attachRequestPayload(&$curl, array $data): void
+    protected function attachRequestPayload(\CurlHandle $curl, array $data): void
     {
         $encoded = json_encode($data, \JSON_THROW_ON_ERROR);
         $this->lastRequest['body'] = $encoded;
@@ -416,6 +416,13 @@ class Pricehubble
         }
 
         $curl = curl_init();
+
+        if (false === $curl) {
+            $this->lastError = 'Unable to initialise a cURL session.';
+
+            throw new \RuntimeException($this->lastError);
+        }
+
         curl_setopt($curl, \CURLOPT_URL, $url);
         curl_setopt($curl, \CURLOPT_HTTPHEADER, $httpHeader);
         curl_setopt($curl, \CURLOPT_USERAGENT, 'Antistatique/Pricehubble');
@@ -458,7 +465,6 @@ class Pricehubble
                 break;
         }
 
-        /** @var string $response_content */
         $response_content = curl_exec($curl);
         $response['headers'] = curl_getinfo($curl);
         $response = $this->setResponseState($response, $response_content, $curl);
@@ -520,15 +526,15 @@ class Pricehubble
      *                                      The response from the curl request
      * @param string|bool $response_content
      *                                      The body of the response from the curl request. Otherwise FALSE.
-     * @param resource    $curl
-     *                                      The curl resource
+     * @param \CurlHandle $curl
+     *                                      The curl session handle
      *
      * @return array
      *               The modified response
      *
      * @throws \Exception
      */
-    protected function setResponseState(array $response, $response_content, $curl): array
+    protected function setResponseState(array $response, string|bool $response_content, \CurlHandle $curl): array
     {
         if (!is_string($response_content)) {
             $this->lastError = curl_error($curl);
