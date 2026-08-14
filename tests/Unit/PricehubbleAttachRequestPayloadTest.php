@@ -44,12 +44,14 @@ final class PricehubbleAttachRequestPayloadTest extends TestCase
         self::assertSame([], $this->pricehubble->getLastRequest());
 
         $curl = curl_init();
+        self::assertInstanceOf(\CurlHandle::class, $curl);
+
         $curl_setopt_mock = $this->getFunctionMock('Antistatique\Pricehubble', 'curl_setopt');
         $curl_setopt_mock->expects($this->once())
             ->with($curl, CURLOPT_POSTFIELDS, '{"name":"john","age":30,"car":null}');
 
         $this->callPrivateMethod($this->pricehubble, 'attachRequestPayload', [
-            &$curl, ['name' => 'john', 'age' => 30, 'car' => null],
+            $curl, ['name' => 'john', 'age' => 30, 'car' => null],
         ]);
         self::assertSame(['body' => '{"name":"john","age":30,"car":null}'], $this->pricehubble->getLastRequest());
     }
