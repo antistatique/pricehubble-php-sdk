@@ -26,7 +26,7 @@ abstract class AbstractResource implements ResourceInterface
      */
     public function __construct(Pricehubble $pricehubble)
     {
-        $this->setPricehubble($pricehubble);
+        $this->pricehubble = $pricehubble;
     }
 
     /**
