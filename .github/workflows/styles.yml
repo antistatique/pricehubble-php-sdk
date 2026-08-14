@@ -1,8 +1,15 @@
 name: Code styles
 on:
   push:
+    branches: [main]
+  pull_request:
   schedule:
     - cron: '0 0 * * THU'
+
+# Supersede in-flight runs for the same branch or pull request.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   php-cs-fixer:
