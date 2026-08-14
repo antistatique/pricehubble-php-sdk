@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - chore(deps): drop unused phpmd/phpmd dev dependency
 
+### Changed
+- fix(composer): bound the php constraint (>=8.4 => ^8.4)
+
+### Fixed
+- fix(dependabot): remove config that silently disabled all version updates
+
 ## [1.2.0] - 2026-05-01
 ### Security
 - update(phpunit): phpunit/phpunit (12.5.14 => 12.5.24)
