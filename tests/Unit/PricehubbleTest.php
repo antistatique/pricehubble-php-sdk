@@ -496,9 +496,12 @@ Content-Type: application/json';
             ->method('setResponseState')
             ->with($this->isArray(), $this->isString(), $this->anything());
 
+        // formatResponse() returns FALSE - not null - when the body cannot be
+        // decoded.
         $pricehubble_mock->expects($this->once())
             ->method('formatResponse')
-            ->with($this->isArray());
+            ->with($this->isArray())
+            ->willReturn(false);
 
         $pricehubble_mock->expects($this->never())
             ->method('determineSuccess');
@@ -521,7 +524,7 @@ Content-Type: application/json';
             ->method('prepareStateForRequest')
             ->with('get', 'https://example.org', 10);
 
-        $pricehubble_mock->expects($this->exactly(2))
+        $pricehubble_mock->expects($this->atLeastOnce())
             ->method('getApiToken')
             ->willReturn('api-token');
 
@@ -559,7 +562,7 @@ Content-Type: application/json';
             ->method('prepareStateForRequest')
             ->with($verb, 'https://example.org', 10);
 
-        $pricehubble_mock->expects($this->exactly(2))
+        $pricehubble_mock->expects($this->atLeastOnce())
             ->method('getApiToken')
             ->willReturn('api-token');
 
@@ -596,7 +599,7 @@ Content-Type: application/json';
           ->method('prepareStateForRequest')
           ->with('get', 'https://example.org', 10);
 
-        $pricehubble_mock->expects($this->exactly(2))
+        $pricehubble_mock->expects($this->atLeastOnce())
           ->method('getApiToken')
           ->willReturn('api-token');
 
@@ -634,5 +637,57 @@ Content-Type: application/json';
         yield ['delete'];
         yield ['patch'];
         yield ['put'];
+    }
+
+    /**
+     * A bearer token of "0" is a valid token but a falsy PHP string.
+     */
+    public function testMakeRequestSendsAuthorizationHeaderForFalsyToken(): void
+    {
+        self::assertContains('Authorization: Bearer 0', $this->captureRequestHeaders('0'));
+    }
+
+    public function testMakeRequestOmitsAuthorizationHeaderWithoutToken(): void
+    {
+        $headers = $this->captureRequestHeaders('');
+
+        foreach ($headers as $header) {
+            self::assertStringStartsNotWith('Authorization:', $header);
+        }
+    }
+
+    /**
+     * Run makeRequest() with the given token and return the CURLOPT_HTTPHEADER value.
+     *
+     * @return array<int, string>
+     */
+    private function captureRequestHeaders(string $token): array
+    {
+        $pricehubble_mock = $this->getMockBuilder(Pricehubble::class)
+            ->onlyMethods(['getApiToken', 'prepareStateForRequest', 'setResponseState', 'formatResponse', 'determineSuccess'])
+            ->getMock();
+        $pricehubble_mock->expects($this->atLeastOnce())->method('getApiToken')->willReturn($token);
+        $pricehubble_mock->method('formatResponse')->willReturn(['foo' => 'bar']);
+        $pricehubble_mock->method('determineSuccess')->willReturn(true);
+
+        $captured = [];
+        $curl_setopt_mock = $this->getFunctionMock('Antistatique\\Pricehubble', 'curl_setopt');
+        $curl_setopt_mock->expects($this->atLeastOnce())
+            ->willReturnCallback(static function ($curl, int $option, $value) use (&$captured): bool {
+                if (\CURLOPT_HTTPHEADER === $option) {
+                    $captured = $value;
+                }
+
+                return true;
+            });
+
+        $curl_exec_mock = $this->getFunctionMock('Antistatique\\Pricehubble', 'curl_exec');
+        $curl_exec_mock->expects($this->once())->willReturn('body');
+
+        $this->callPrivateMethod($pricehubble_mock, 'makeRequest', [
+            'get', 'https://example.org',
+        ]);
+
+        return $captured;
     }
 }

@@ -10,12 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - fix(composer): bound the php constraint (>=8.4 => ^8.4)
+- fix(linter): raise psalm errorLevel (7 => 2) and drop dead config
 
 ### Fixed
 - fix(ci): run workflows on pull_request so fork contributions get CI
 - fix(dependabot): remove config that silently disabled all version updates
 - fix(php85): remove deprecated calls and fail the suite on new ones
 - fix(curl): type cURL handles as CurlHandle and check curl_init failure
+- fix(http): reject malformed URLs instead of failing with a TypeError
+- fix(auth): send the Authorization header for a falsy-but-valid token
 
 ### Added
 - test(resource): assert verb, URL and timeout passed to makeRequest

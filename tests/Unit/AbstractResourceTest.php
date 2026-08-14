@@ -29,21 +29,16 @@ final class AbstractResourceTest extends TestCase
     public function testConstructor(): void
     {
         $pricehubble = new Pricehubble();
-        // Get mock, without the constructor being called
-        $mock = $this->getMockBuilder(AbstractResource::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['setPricehubble'])
-            ->getMock();
 
-        // Set expectations for constructor calls.
-        $mock->expects($this->once())
-            ->method('setPricehubble')
-            ->with($pricehubble);
+        $testResource = new class($pricehubble) extends AbstractResource {
+            #[\Override]
+            public function setPricehubble(Pricehubble $pricehubble): self
+            {
+                return $this;
+            }
+        };
 
-        // Now call the constructor
-        $reflectedClass = new \ReflectionClass(AbstractResource::class);
-        $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($mock, $pricehubble);
+        self::assertSame($pricehubble, $testResource->getPricehubble());
     }
 
     public function testSetPricehubbleReturnsExpected(): void
