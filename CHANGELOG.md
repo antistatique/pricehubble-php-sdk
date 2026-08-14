@@ -5,7 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- chore(deps): drop unused phpmd/phpmd dev dependency
+
+### Changed
+- fix(composer): bound the php constraint (>=8.4 => ^8.4)
+
 ### Fixed
+- fix(ci): run workflows on pull_request so fork contributions get CI
+- fix(dependabot): remove config that silently disabled all version updates
 - fix(php85): remove deprecated calls and fail the suite on new ones
 
 ## [1.2.0] - 2026-05-01

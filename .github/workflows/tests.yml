@@ -1,8 +1,15 @@
 name: Tests
 on:
   push:
+    branches: [main]
+  pull_request:
   schedule:
     - cron: '0 0 * * THU'
+
+# Supersede in-flight runs for the same branch or pull request.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   tests:
@@ -17,7 +24,7 @@ jobs:
           with:
               tools: composer:v2
               php-version: ${{ matrix.php-versions }}
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v7
         - uses: php-actions/composer@v6
           with:
               php_version: ${{ matrix.php-versions }}
