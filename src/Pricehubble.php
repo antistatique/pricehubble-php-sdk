@@ -114,24 +114,20 @@ class Pricehubble
      */
     public function __call(string $name, array $arguments): ResourceInterface
     {
-        try {
-            $apiClass = ucfirst($name);
-            $apiFQNClass = self::FQN_CLASS.$apiClass;
+        $apiClass = ucfirst($name);
+        $apiFQNClass = self::FQN_CLASS.$apiClass;
 
-            if (false === class_exists($apiFQNClass)) {
-                throw new \InvalidArgumentException(sprintf('Undefined API class %s', $apiClass));
-            }
-
-            $resource = new $apiFQNClass($this);
-
-            if (!$resource instanceof ResourceInterface) {
-                throw new \InvalidArgumentException(sprintf('API class %s is not a %s', $apiClass, ResourceInterface::class));
-            }
-
-            return $resource;
-        } catch (\InvalidArgumentException $e) {
+        if (false === class_exists($apiFQNClass)) {
             throw new \BadMethodCallException(sprintf('Undefined method %s', $name));
         }
+
+        $resource = new $apiFQNClass($this);
+
+        if (!$resource instanceof ResourceInterface) {
+            throw new \BadMethodCallException(sprintf('API class %s is not a %s', $apiClass, ResourceInterface::class));
+        }
+
+        return $resource;
     }
 
     /**
@@ -166,9 +162,10 @@ class Pricehubble
      * If something didn't work, this contain the string describing the problem.
      *
      * @return bool|string
-     *                     Describing the error
+     *                     The string describing the error, or FALSE when the
+     *                     last request did not record one
      */
-    public function getLastError()
+    public function getLastError(): bool|string
     {
         return $this->lastError ?: false;
     }
@@ -213,9 +210,11 @@ class Pricehubble
     /**
      * Get the API token for restricted API calls.
      *
-     * @return string|null $token The Pricehubble token authorized for restricted API calls
+     * @return string
+     *                The Pricehubble token authorized for restricted API calls,
+     *                or an empty string when no token has been set yet
      */
-    public function getApiToken(): ?string
+    public function getApiToken(): string
     {
         return $this->apiAuthToken;
     }
@@ -411,7 +410,7 @@ class Pricehubble
         // add Authorization token for any verb.
         $apiToken = $this->getApiToken();
 
-        if (null !== $apiToken && '' !== $apiToken) {
+        if ('' !== $apiToken) {
             $httpHeader[] = "Authorization: Bearer {$apiToken}";
         }
 

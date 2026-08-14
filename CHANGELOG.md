@@ -19,9 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(curl): type cURL handles as CurlHandle and check curl_init failure
 - fix(http): reject malformed URLs instead of failing with a TypeError
 - fix(auth): send the Authorization header for a falsy-but-valid token
+- fix(api): tighten getApiToken/getLastError return types and unmask __call errors
 
 ### Added
 - test(resource): assert verb, URL and timeout passed to makeRequest
+- test(coverage): cover the curl_init, parse_url and resource-type guards
 
 ## [1.2.0] - 2026-05-01
 ### Security
