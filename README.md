@@ -142,6 +142,77 @@ $response = $pricehubble->pointsOfInterest()->gather([
 print_r($response);
 ```
 
+### Dossier Create
+
+Creates a new dossier. The dossier can then be shared using the Dossier Sharing endpoint.
+
+👉 https://docs.pricehubble.com/international/dossier_creation/
+
+```php
+$pricehubble = new Pricehubble();
+$pricehubble->authenticate($username, $password)
+$response = $pricehubble->dossier()->create([
+  'title' => 'My dossier',
+  'description' => 'My description',
+  'dealType' => 'sale',
+  'property' => [
+    'location' => [
+      'address' => [
+        'postCode' => '8037',
+        'city' => 'Zurich',
+        'street' => 'Nordstrasse',
+        'houseNumber' => '391',
+      ],
+      'coordinates' => [
+        'latitude' => 47.3968601,
+        'longitude' => 8.5153549,
+      ],
+    ],
+    'propertyType' => [
+      'code' => 'house',
+      'subcode' => 'house_detached',
+    ],
+    'buildingYear' => 1990,
+    'livingArea' => 100.00,
+    'landArea' => 900.00,
+    'volume' => 900.00,
+    'numberOfRooms' => 3,
+    'numberOfBathrooms' => 1,
+    'numberOfIndoorParkingSpaces' => 0,
+    'numberOfOutdoorParkingSpaces' => 0,
+    'hasPool' => true,
+    'condition' => [
+      'bathrooms' => 'renovation_needed',
+      'kitchen' => 'renovation_needed',
+      'flooring' => 'well_maintained',
+      'windows' => 'new_or_recently_renovated',
+    ],
+    'quality' => [
+      'bathrooms' => 'simple',
+      'kitchen' => 'normal',
+      'flooring' => 'high_quality',
+      'windows' => 'luxury',
+    ],
+  ],
+  'userDefinedFields' => [
+    [
+    'label' => 'Extra garage',
+    'value' => 'Yes',
+    ],
+  ],
+  'images' => [
+    [
+    'filename' => '633390e8-0455-4520-87ba-3c5c8c234cb3.jpg',
+    'caption' => 'Front view',
+    ],
+  ],
+  'logo' => 'b7219677-f4d5-4e99-9d7f-7cf1dee68900.png',
+  'countryCode' => 'CH',
+]);
+print_r($response);
+```
+
+
 Troubleshooting
 ---------------
 

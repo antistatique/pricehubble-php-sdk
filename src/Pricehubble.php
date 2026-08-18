@@ -16,6 +16,7 @@ use Antistatique\Pricehubble\Resource\ResourceInterface;
  *
  * @method \Antistatique\Pricehubble\Resource\Valuation        valuation()
  * @method \Antistatique\Pricehubble\Resource\PointsOfInterest pointsOfInterest()
+ * @method \Antistatique\Pricehubble\Resource\Dossier          dossier()
  */
 class Pricehubble
 {
