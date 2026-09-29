@@ -7,8 +7,8 @@ I hate complex wrappers. This lets you get from the Pricehubble API docs to the 
 
 [![Build](https://github.com/antistatique/pricehubble-php-sdk/actions/workflows/tests.yml/badge.svg)](https://github.com/antistatique/pricehubble-php-sdk/actions/workflows/tests.yml)
 [![Coverage Status](https://coveralls.io/repos/github/antistatique/pricehubble-php-sdk/badge.svg)](https://coveralls.io/github/antistatique/pricehubble-php-sdk)
-[![Packagist](https://img.shields.io/packagist/dt/antistatique/pricehubble-php-sdk.svg?maxAge=2592000)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
-[![License](https://poser.pugx.org/antistatique/pricehubble-php-sdk/license)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
+[![Packagist](https://img.shields.io/packagist/dt/antistatique/pricehubble-php-sdk.svg)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
+[![License](https://img.shields.io/packagist/l/antistatique/pricehubble-php-sdk.svg)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 [![PHP Versions Supported](https://img.shields.io/badge/php-%5E8.4-8892BF.svg)](https://packagist.org/packages/antistatique/pricehubble-php-sdk)
 
 Getting started
@@ -52,7 +52,7 @@ The number of valuations per call may not exceed 50, i.e. you can perform valuat
 
 ```php
 $pricehubble = new Pricehubble();
-$pricehubble->authenticate($username, $password)
+$pricehubble->authenticate($username, $password);
 $response = $pricehubble->valuation()->full([
     'dealType' => 'sale',
     'valuationInputs' => [
@@ -89,7 +89,7 @@ If you would like to perform valuations for multiple properties (in a single cal
 
 ```php
 $pricehubble = new Pricehubble();
-$pricehubble->authenticate($username, $password)
+$pricehubble->authenticate($username, $password);
 $response = $pricehubble->valuation()->light([
     'dealType' => 'sale',
     'property' => [
@@ -120,7 +120,7 @@ Returns point of interests such as schools, shops, etc. that match the specified
 
 ```php
 $pricehubble = new Pricehubble();
-$pricehubble->authenticate($username, $password)
+$pricehubble->authenticate($username, $password);
 $response = $pricehubble->pointsOfInterest()->gather([
     'coordinates' => [
         'latitude' => 47.3968601,
