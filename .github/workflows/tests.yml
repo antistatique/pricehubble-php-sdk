@@ -11,11 +11,21 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  # Coveralls closes a build as soon as it accepts a job for it, so every
+  # matrix leg after the first got "Can't add a job to a build that is already
+  # closed". The coverage is identical on every version anyway - collect and
+  # report it from exactly one of them.
+  COVERAGE_PHP_VERSION: '8.5'
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
 jobs:
   tests:
     runs-on: ubuntu-latest
 
     strategy:
+      # One PHP version failing should not hide the result of the others.
+      fail-fast: false
       matrix:
         php-versions: ['8.4', '8.5']
     steps:
@@ -24,16 +34,20 @@ jobs:
           with:
               tools: composer:v2
               php-version: ${{ matrix.php-versions }}
+              coverage: ${{ matrix.php-versions == env.COVERAGE_PHP_VERSION && 'xdebug' || 'none' }}
         - uses: actions/checkout@v7
         - uses: php-actions/composer@v6
           with:
               php_version: ${{ matrix.php-versions }}
               version: 2
 
-        - run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
+        - name: Run tests
+          if: matrix.php-versions != env.COVERAGE_PHP_VERSION
+          run: ./vendor/bin/phpunit --no-coverage
+        - name: Run tests with coverage
+          if: matrix.php-versions == env.COVERAGE_PHP_VERSION
+          run: XDEBUG_MODE=coverage ./vendor/bin/phpunit
         - name: Upload coverage results to Coveralls
-          env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            composer global require php-coveralls/php-coveralls
-            php-coveralls --coverage_clover=build/logs/clover.xml -v
+          # Skipped on fork pull requests, where the secret is not exposed.
+          if: matrix.php-versions == env.COVERAGE_PHP_VERSION && env.COVERALLS_REPO_TOKEN != ''
+          run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
