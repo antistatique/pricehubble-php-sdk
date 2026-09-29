@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - fix(phpunit): fail the suite on notices and PHPUnit deprecations
+- docs(readme): fix authenticate examples and switch badges to shields.io
 
 ## [1.2.1] - 2026-08-14
 ### Removed
