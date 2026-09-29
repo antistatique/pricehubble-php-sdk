@@ -8,13 +8,13 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^13",
-    "symfony/dotenv": "^8.0",
-    "friendsofphp/php-cs-fixer": "^3.94",
+    "phpunit/phpunit": "^13.3.5",
+    "symfony/dotenv": "^8.1.6",
+    "friendsofphp/php-cs-fixer": "^3.95.27",
     "php-coveralls/php-coveralls": "^2.9",
     "php-mock/php-mock-phpunit": "^2.15",
-    "vimeo/psalm": "^6.0",
-    "phpunit/php-code-coverage": "^14"
+    "vimeo/psalm": "^6.19",
+    "phpunit/php-code-coverage": "^14.3.5"
   },
   "autoload": {
     "psr-4": {
