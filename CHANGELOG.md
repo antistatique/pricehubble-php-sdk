@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - fix(ci): report coverage to Coveralls from a single matrix leg
 
+### Changed
+- fix(phpunit): fail the suite on notices and PHPUnit deprecations
+
 ## [1.2.1] - 2026-08-14
 ### Removed
 - chore(deps): drop unused phpmd/phpmd dev dependency
