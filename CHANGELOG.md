@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore(deps-dev): friendsofphp/php-cs-fixer (v3.95.18 => v3.95.27)
 - chore(deps-dev): symfony/dotenv (v8.1.2 => v8.1.6)
 
+### Fixed
+- fix(ci): report coverage to Coveralls from a single matrix leg
+
+### Changed
+- fix(phpunit): fail the suite on notices and PHPUnit deprecations
+- docs(readme): fix authenticate examples and switch badges to shields.io
+
 ## [1.2.1] - 2026-08-14
 ### Removed
 - chore(deps): drop unused phpmd/phpmd dev dependency
